@@ -1,0 +1,102 @@
+/* @import './base.css'; */
+/* 
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+} */
+/* === Pacifico === */
+@font-face {
+  font-family: 'Pacifico';
+  src: url('./fonts/Pacifico-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* === Lobster === */
+@font-face {
+  font-family: 'Lobster';
+  src: url('./fonts/Lobster-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* === Averia Libre === */
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-Regular.ttf') format('truetype');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-Bold.ttf') format('truetype');
+  font-display: swap;
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-Italic.ttf') format('truetype');
+  font-display: swap;
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-BoldItalic.ttf') format('truetype');
+  font-display: swap;
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-Light.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Averia Libre';
+  src: url('./fonts/AveriaLibre-LightItalic.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 300;
+  font-style: italic;
+}
+
+p, a, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Averia Libre', sans-serif;
+  font-weight: normal;
+}
