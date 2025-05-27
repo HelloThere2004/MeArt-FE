@@ -23,7 +23,7 @@
           <div class="row d-flex row-image-container">
             <div class="col-6 home-image">
               <img
-                src="../assets/image/HomePage/homeIMG1.jpeg"
+                src="../assets/image/HomePage/homeIMG1.jpg"
                 alt="MeArt Logo"
                 class="img-fluid"
               />
