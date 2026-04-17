@@ -15,6 +15,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import Pic from '../components/Pic.vue'
+import { createClient } from '@supabase/supabase-js'
+
+// Thay bằng URL và ANON KEY thật trong project Supabase của ông (phần Project Settings > API)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default {
   name: 'Gallery',
@@ -23,52 +29,37 @@ export default {
   },
   data() {
     return {
-    pics: [
-      {
-        id: 1,
-        img: new URL('../assets/image/gallery/pic1.jpg', import.meta.url).href,
-        name: 'Tác phẩm 1',
-        author: 'Nguyễn Văn A',
-        description: 'Tác phẩm vẽ phong cảnh mùa thu.',
-      },
-      {
-        id: 2,
-        img: new URL('../assets/image/gallery/pic2.jpg', import.meta.url).href,
-        name: 'Tác phẩm 2',
-        author: 'Trần Thị B',
-        description: 'Tác phẩm chân dung thiếu nữ.',
-      },
-      {
-        id: 3,
-        img: new URL('../assets/image/gallery/pic3.jpg', import.meta.url).href,
-        name: 'Tác phẩm 3',
-        author: 'Lê Văn C',
-        description: 'Tác phẩm vẽ tĩnh vật hoa quả.',
-      },
-      {
-        id: 4,
-        img: new URL('../assets/image/gallery/pic4.jpg', import.meta.url).href,
-        name: 'Tác phẩm 4',
-        author: 'Phạm Thị D',
-        description: 'Tác phẩm vẽ phong cảnh biển.',
-      },
-      {
-        id: 5,
-        img: new URL('../assets/image/gallery/pic5.jpg', import.meta.url).href,
-        name: 'Tác phẩm 5',
-        author: 'Hoàng Văn E',
-        description: 'Tác phẩm vẽ phố cổ Hà Nội.',
-      },
-      {
-        id: 6,
-        img: new URL('../assets/image/gallery/pic6.jpg', import.meta.url).href,
-        name: 'Tác phẩm 6',
-        author: 'Đỗ Thị F',
-        description: 'Tác phẩm vẽ động vật hoang dã.',
-      },
-      ],
+      pics: [], // Bỏ đống data rác đi, khởi tạo mảng rỗng để chờ data từ API
     }
   },
+  // Hook này sẽ chạy ngay khi trang web vừa load xong
+  async mounted() {
+    await this.fetchGalleryData()
+  },
+  methods: {
+    async fetchGalleryData() {
+      // Gọi API trực tiếp vào bảng gallery
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('*')
+
+      if (error) {
+        console.error('Lỗi khi kéo data từ Supabase:', error.message)
+        return
+      }
+
+      // Format lại data từ Database cho khớp với props của thẻ <Pic>
+      if (data) {
+        this.pics = data.map((item) => ({
+          id: item.id,
+          img: item.image_url,    // Nối cột image_url vào thuộc tính img
+          name: item.title,       // Nối cột title vào thuộc tính name
+          author: item.author,
+          description: item.description,
+        }))
+      }
+    }
+  }
 }
 </script>
 
