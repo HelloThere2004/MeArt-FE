@@ -45,10 +45,11 @@
 
 <script>
 import { createClient } from '@supabase/supabase-js'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-// Lưu ý: Đăng ký thì xài ANON_KEY bình thường nhé
+const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default {
