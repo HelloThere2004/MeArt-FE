@@ -21,6 +21,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import Member from '../components/Member.vue'
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default {
   name: 'AboutView',
@@ -29,41 +34,32 @@ export default {
   },
   data() {
     return {
-      members: [
-        {
-          name: 'Nguyễn Văn Hảo',
-          role: 'Giáo viên chính',
-          description:
-            'Thầy Hảo là một giáo viên dạy vẽ với nhiều năm kinh nghiệm. Thầy dạy đã đi dạy và chấm tốt nghiệp ở các trường đại học như Đại học Văn Lang, Đại học Tôn Đức Thắng hơn 20 năm nay. Tại Mê Art, thầy Hảo là người trực tiếp giảng dạy các bạn cũng như theo dõi và hỗ trợ các bạn trong việc chọn ngành, chọn trường và các thông tin thi cử vào các đại học.',
-          img: new URL('../assets/image/member/Hao.jpg', import.meta.url).href,
-        },
-        {
-          name: 'Hồ Ngọc Lệ',
-          role: 'Trợ giảng/Tư vấn',
-          description:
-            'Cô Lệ cũng là giáo viên dạy vẽ với nhiều năm kinh nghiệm giống như thầy Hảo. Cô hiện nay là giảng viên của trường Đại học Tôn Đức Thắng với thâm niên hơn 15 năm. Trước đó cô cũng đã công tác tại các trường đại học khác như Đại học Hồng Bàng, Đại học Văn Lang. Đôi lúc cô Lệ cũng sẽ hỗ trợ các bạn trong quá trình học và đặc biệt là cô sẽ chia sẻ thông tin chi tiết các ngành vẽ cũng như các thông tin thi cử vào trường Đại học Tôn Đức Thắng.',
-          img: new URL('../assets/image/member/Le.jpg', import.meta.url).href,
-        },
-        {
-          name: 'Nguyễn Cung Đàn',
-          role: 'Trợ giảng/Tư vấn',
-          description:
-            'Anh Đàn hiện là một giảng viên tại Đại học Sư Phạm - Kỹ Thuật và từng là giảng viên thỉnh giảng tại Cao đẳng Việt Mỹ. Anh Đàn cùng với thầy Hảo sẽ là người trực tiếp giảng dạy các bạn trong quá trình học tại Mê Art. Anh Đàn cũng sẽ hỗ trợ các bạn trong việc chọn ngành, chọn trường và các thông tin thi cử vào các đại học.',
-          img: new URL('../assets/image/member/Dan.jpg', import.meta.url).href,
-        },
-        {
-          name: 'Cam béo',
-          role: 'Thú cưng',
-          description:
-            'Bên cạnh các thầy cô thì Mê Art còn có một bé mèo thân thiện hay đi lại trong lớp để các bạn học sinh có thể vui đùa, giải trí trong giờ giải lao nữa.',
-          img: new URL('../assets/image/member/Cam.jpg', import.meta.url).href,
-        },
-      ],
+      members: [],
     }
   },
   computed: {
     year() {
       return parseInt(new Date().getFullYear()) - 2022
+    },
+  },
+  async mounted() {
+    await this.fetchMembers()
+  },
+  methods: {
+    async fetchMembers() {
+      const { data, errors } = await supabase.from('members').select('*')
+      if (errors) {
+        console.log('Lỗi khi kéo data từ Supabase:', errors.message)
+        return
+      }
+      if (data) {
+        this.members = data.map((item) => ({
+          name: item.name,
+          role: item.role,
+          img: item.image_url,
+          description: item.description,
+        }))
+      }
     },
   },
 }

@@ -29,16 +29,14 @@ export default {
   },
   data() {
     return {
-      pics: [], // Bỏ đống data rác đi, khởi tạo mảng rỗng để chờ data từ API
+      pics: [],
     }
   },
-  // Hook này sẽ chạy ngay khi trang web vừa load xong
   async mounted() {
     await this.fetchGalleryData()
   },
   methods: {
     async fetchGalleryData() {
-      // Gọi API trực tiếp vào bảng gallery
       const { data, error } = await supabase
         .from('gallery')
         .select('*')
@@ -48,12 +46,11 @@ export default {
         return
       }
 
-      // Format lại data từ Database cho khớp với props của thẻ <Pic>
       if (data) {
         this.pics = data.map((item) => ({
           id: item.id,
-          img: item.image_url,    // Nối cột image_url vào thuộc tính img
-          name: item.title,       // Nối cột title vào thuộc tính name
+          img: item.image_url,    
+          name: item.title,       
           author: item.author,
           description: item.description,
         }))
