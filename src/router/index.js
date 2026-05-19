@@ -1,10 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-)
+import { supabase } from '@/utils/supabase.js'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,17 +36,17 @@ const router = createRouter({
       path: '/admin',
       name: 'Administration',
       component: () => import('../views/AdministrationView.vue'),
-      meta: {requiresAuth: true}
+      meta: { requiresAuth: true },
     },
     {
       path: '/login',
       name: 'Login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
     },
     {
       path: '/signup',
       name: 'SignUp',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/SignUpView.vue'),
     },
     {
       path: '/:catchAll(.*)*',
@@ -59,18 +54,17 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue'),
     },
   ],
-  
 })
 router.beforeEach(async (to, from, next) => {
-    const { data } = await supabase.auth.getSession()
-    const isAuthenticated = !!data.user
+  const { data } = await supabase.auth.getSession()
+  const isAuthenticated = !!data.session // Đã sửa lỗi số 2
 
-    if (to.meta.requiresAuth && !isAuthenticated) {
-      next({ name: 'Login' })
-    } else if (to.name === 'Login' && isAuthenticated) {
-      router.push('/admin')
-    } else {
-      next()
-    }
-  })
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next({ name: 'Login' })
+  } else if (to.name === 'Login' && isAuthenticated) {
+    next({ name: 'Administration' }) // Đã sửa lỗi số 3
+  } else {
+    next()
+  }
+})
 export default router

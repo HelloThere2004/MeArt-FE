@@ -26,12 +26,8 @@
 </template>
 
 <script>
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/utils/supabase.js'
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-)
 
 export default {
   name: 'LoginView',

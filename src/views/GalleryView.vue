@@ -15,12 +15,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 import Pic from '../components/Pic.vue'
-import { createClient } from '@supabase/supabase-js'
-
-// Thay bằng URL và ANON KEY thật trong project Supabase của ông (phần Project Settings > API)
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-const supabase = createClient(supabaseUrl, supabaseKey)
+import { supabase } from '@/utils/supabase.js'
 
 export default {
   name: 'Gallery',

@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 import Nav from './components/Nav.vue'
 import Footer from './components/Footer.vue'
 import { ref, onMounted } from 'vue'
-import { supabase } from '../utils/supabase'
+import { supabase } from '@/utils/supabase'
 
 const todos = ref([])
 
