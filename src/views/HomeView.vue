@@ -1,10 +1,8 @@
-<script setup></script>
-
 <template>
   <main class="home-content">
     <div class="container">
       <div class="row">
-        <div class="col-6 content">
+        <div class="col-md-6 content">
           <h1>Chào mừng các bạn đã đến trang thông tin của lớp vẽ Mê Art</h1>
           <p>
             Lớp vẽ MeArt là một nơi để các bạn học sinh có ước mơ theo ngành vẽ có thể đến học tập
@@ -15,41 +13,25 @@
             tập và rèn luyện kỹ năng vẽ của mình vì đam mê cũng như là giao lưu, kết bạn với những
             người bạn có cùng sở thích với mình.
           </p>
-            <RouterLink to="/about" class="btn text-dark">
-              Vào đây để tìm hiểu thêm về Mê Art các bạn nhé!
-            </RouterLink>
+          <RouterLink to="/about" class="btn text-dark">
+            Vào đây để tìm hiểu thêm về Mê Art các bạn nhé!
+          </RouterLink>
         </div>
-        <div class="col-6 container">
-          <div class="row d-flex row-image-container">
+        <div class="col-md-6 image-grid">
+          <div class="row g-2 row-image-container">
             <div class="col-6 home-image">
-              <img
-                src="../assets/image/HomePage/homeIMG1.jpg"
-                alt="MeArt Logo"
-                class="img-fluid"
-              />
+              <img src="../assets/image/HomePage/homeIMG1.jpg" alt="MeArt Logo" class="img-fluid" />
             </div>
             <div class="col-6 home-image">
-              <img
-                src="../assets/image/HomePage/homeIMG5.jpg"
-                alt="MeArt Logo"
-                class="img-fluid"
-              />
+              <img src="../assets/image/HomePage/homeIMG5.jpg" alt="MeArt Logo" class="img-fluid" />
             </div>
           </div>
-          <div class="row d-flex row-image-container">
+          <div class="row g-2 row-image-container">
             <div class="col-6 home-image">
-              <img
-                src="../assets/image/HomePage/homeIMG6.jpg"
-                alt="MeArt Logo"
-                class="img-fluid"
-              />
+              <img src="../assets/image/HomePage/homeIMG6.jpg" alt="MeArt Logo" class="img-fluid" />
             </div>
             <div class="col-6 home-image">
-              <img
-                src="../assets/image/HomePage/homeIMG4.jpg"
-                alt="MeArt Logo"
-                class="img-fluid"
-              />
+              <img src="../assets/image/HomePage/homeIMG4.jpg" alt="MeArt Logo" class="img-fluid" />
             </div>
           </div>
         </div>
@@ -90,8 +72,12 @@
   text-decoration: none;
 }
 
+.image-grid {
+  padding: 0 10px;
+}
+
 .row-image-container {
-  margin-left: 5px;
+  margin-left: 0;
   display: flex;
   justify-content: center;
   gap: 10px;
@@ -99,55 +85,72 @@
 }
 
 .home-image {
-  padding: 0;
-  width: 300px; 
-  height: 300px; 
+  padding: 0 5px;
+  width: 300px;
+  height: 300px;
   position: relative;
 }
 
 .home-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* This will make sure the image fills the square */
-  border-radius: 4px; /* Optional: adds slight rounding to corners */
+  object-fit: cover;
+  border-radius: 4px;
 }
 
-@media (max-width: 480px) {
+/* Mobile: stack everything */
+@media (max-width: 768px) {
   .home-content {
-    padding: 15px;
+    padding: 10px;
   }
 
   .home-content h1 {
-    font-size: 20px;
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .home-content p {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .home-content .content {
+    padding: 15px;
     margin-bottom: 15px;
+  }
+
+  .home-content .btn {
+    padding: 8px 16px;
+    font-size: 15px;
+    display: inline-block;
+    width: auto;
+  }
+
+  .image-grid {
+    padding: 0;
+  }
+
+  .home-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 0 4px;
+  }
+
+  .row-image-container {
+    gap: 0;
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-content h1 {
+    font-size: 20px;
   }
 
   .home-content p {
     font-size: 14px;
-    margin-bottom: 12px;
-  }
-  .home-content .content {
-    padding: 15px;
-  }
-  .home-image {
-    width: 150px; /* Smaller size for mobile */
-    height: 150px;
-  }
-  .row-image-container {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
     margin-bottom: 8px;
-    flex-wrap: wrap; /* Allow wrapping on mobile */
-    justify-content: center;
-  }
-  .home-content .btn {
-    background-color: #ffea61;
-    color: #333;
-    padding: 5px 5px;
-    border-radius: 5px;
-    font-size: 14px;
-    text-decoration: none;
   }
 }
 </style>

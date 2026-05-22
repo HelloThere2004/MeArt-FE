@@ -2,32 +2,24 @@
 import { RouterView } from 'vue-router'
 import Nav from './components/Nav.vue'
 import Footer from './components/Footer.vue'
-import { ref, onMounted } from 'vue'
-import { supabase } from '@/utils/supabase'
-
-const todos = ref([])
-
-async function getTodos() {
-  const { data } = await supabase.from('todos').select()
-  todos.value = data
-}
-
-onMounted(() => {
-  getTodos()
-})
 </script>
 
 <template>
-  <body>
+  <div id="app-root">
     <Nav />
-
     <RouterView class="main_content" />
-
     <Footer />
-  </body>
+  </div>
 </template>
 
-<style scoped>
+<style>
+/* Global reset & base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   background-color: #585858;
@@ -35,9 +27,28 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .main_content {
   flex: 1;
+}
+
+/* Global mobile adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 </style>

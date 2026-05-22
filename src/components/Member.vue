@@ -60,19 +60,36 @@ export default {
   line-height: 1.4;
 }
 
-@media (max-width: 480px) {
+/* Mobile responsive */
+@media (max-width: 768px) {
   .member-card {
-    padding: 10px;
+    padding: 12px;
+  }
+
+  .member-card .row {
+    flex-direction: column;
+    text-align: center;
   }
 
   .member-card img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 12px auto;
+    display: block;
   }
 
   .member-card h3 {
     font-size: 18px;
+  }
+
+  .member-card .role {
+    font-size: 15px;
+  }
+
+  .member-card .description {
+    font-size: 14px;
   }
 }
 </style>

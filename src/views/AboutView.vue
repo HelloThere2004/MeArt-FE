@@ -83,4 +83,37 @@ export default {
   color: rgb(120, 110, 0);
   font-weight: bold;
 }
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .about {
+    padding: 15px;
+    margin: 10px auto;
+    max-width: 95%;
+  }
+
+  .about h1 {
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .about h2 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+
+  .about p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about h1 {
+    font-size: 22px;
+  }
+
+  .about p {
+    font-size: 14px;
+  }
+}
 </style>

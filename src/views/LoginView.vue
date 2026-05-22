@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow-sm" style="width: 400px; border-radius: 12px;">
+  <div class="d-flex justify-content-center align-items-center vh-100 login-bg">
+    <div class="card p-4 shadow-sm login-card">
       <div class="text-center mb-4">
         <h3 class="fw-bold">Mê Art Studio</h3>
         <p class="text-muted">Đăng nhập hệ thống quản trị</p>
@@ -11,11 +11,23 @@
       <form @submit.prevent="handleLogin">
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input v-model="email" type="email" class="form-control" required placeholder="admin@meart.com">
+          <input
+            v-model="email"
+            type="email"
+            class="form-control"
+            required
+            placeholder="admin@meart.com"
+          />
         </div>
         <div class="mb-4">
           <label class="form-label">Mật khẩu</label>
-          <input v-model="password" type="password" class="form-control" required placeholder="••••••••">
+          <input
+            v-model="password"
+            type="password"
+            class="form-control"
+            required
+            placeholder="••••••••"
+          />
         </div>
         <button type="submit" class="btn btn-dark w-100" :disabled="isLoading">
           {{ isLoading ? 'Đang xác thực...' : 'Đăng nhập' }}
@@ -28,7 +40,6 @@
 <script>
 import { supabase } from '@/utils/supabase.js'
 
-
 export default {
   name: 'LoginView',
   data() {
@@ -36,7 +47,7 @@ export default {
       email: '',
       password: '',
       isLoading: false,
-      errorMsg: ''
+      errorMsg: '',
     }
   },
   methods: {
@@ -55,7 +66,38 @@ export default {
         this.$router.push('/admin')
       }
       this.isLoading = false
-    }
-  }
+    },
+  },
 }
 </script>
+
+<style scoped>
+.login-bg {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.login-card {
+  width: 400px;
+  max-width: 100%;
+  border-radius: 12px;
+  border: none;
+}
+
+@media (max-width: 576px) {
+  .login-bg {
+    padding: 10px;
+    align-items: flex-start !important;
+    padding-top: 40px;
+  }
+
+  .login-card {
+    width: 100%;
+    padding: 1.25rem !important;
+  }
+
+  .login-card h3 {
+    font-size: 1.4rem;
+  }
+}
+</style>

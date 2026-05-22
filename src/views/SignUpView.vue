@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-    <div class="card p-4 shadow-sm" style="width: 450px; border-radius: 12px;">
+  <div class="d-flex justify-content-center align-items-center vh-100 signup-bg">
+    <div class="card p-4 shadow-sm signup-card">
       <div class="text-center mb-4">
         <h3 class="fw-bold">Mê Art Studio</h3>
         <p class="text-muted">Đăng ký tài khoản Học viên</p>
@@ -12,22 +12,47 @@
       <form @submit.prevent="handleSignUp">
         <div class="mb-3">
           <label class="form-label">Họ và Tên</label>
-          <input v-model="fullName" type="text" class="form-control" required placeholder="VD: Nguyễn Văn A">
+          <input
+            v-model="fullName"
+            type="text"
+            class="form-control"
+            required
+            placeholder="VD: Nguyễn Văn A"
+          />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Email</label>
-          <input v-model="email" type="email" class="form-control" required placeholder="hocvien@email.com">
+          <input
+            v-model="email"
+            type="email"
+            class="form-control"
+            required
+            placeholder="hocvien@email.com"
+          />
         </div>
 
         <div class="mb-3">
           <label class="form-label">Mật khẩu</label>
-          <input v-model="password" type="password" class="form-control" required minlength="6" placeholder="Ít nhất 6 ký tự">
+          <input
+            v-model="password"
+            type="password"
+            class="form-control"
+            required
+            minlength="6"
+            placeholder="Ít nhất 6 ký tự"
+          />
         </div>
 
         <div class="mb-4">
           <label class="form-label">Xác nhận Mật khẩu</label>
-          <input v-model="confirmPassword" type="password" class="form-control" required placeholder="Nhập lại mật khẩu">
+          <input
+            v-model="confirmPassword"
+            type="password"
+            class="form-control"
+            required
+            placeholder="Nhập lại mật khẩu"
+          />
         </div>
 
         <button type="submit" class="btn btn-dark w-100 mb-3" :disabled="isLoading">
@@ -36,7 +61,9 @@
 
         <div class="text-center">
           <span class="text-muted">Đã có tài khoản? </span>
-          <router-link to="/login" class="text-decoration-none fw-bold text-dark">Đăng nhập ngay</router-link>
+          <router-link to="/login" class="text-decoration-none fw-bold text-dark"
+            >Đăng nhập ngay</router-link
+          >
         </div>
       </form>
     </div>
@@ -44,7 +71,6 @@
 </template>
 
 <script>
-import { createClient } from '@supabase/supabase-js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
@@ -60,7 +86,7 @@ export default {
       confirmPassword: '',
       isLoading: false,
       errorMsg: '',
-      successMsg: ''
+      successMsg: '',
     }
   },
   methods: {
@@ -82,9 +108,9 @@ export default {
         options: {
           data: {
             full_name: this.fullName,
-            role: 'student' // Đóng mác học viên mặc định để xài RLS phân quyền
-          }
-        }
+            role: 'student', // Đóng mác học viên mặc định để xài RLS phân quyền
+          },
+        },
       })
 
       if (error) {
@@ -92,7 +118,7 @@ export default {
       } else {
         // 3. Xử lý UI khi thành công
         this.successMsg = 'Đăng ký thành công! Đang chuyển về trang Đăng nhập...'
-        
+
         // Reset form cho sạch
         this.fullName = ''
         this.email = ''
@@ -101,15 +127,46 @@ export default {
 
         // Nếu Supabase ĐANG BẬT "Confirm Email" thì sửa câu thông báo trên thành:
         // this.successMsg = 'Đăng ký thành công! Vui lòng check email để kích hoạt.'
-        
+
         // Đá người dùng về trang Login sau 2 giây
         setTimeout(() => {
           this.$router.push('/login')
         }, 2000)
       }
-      
+
       this.isLoading = false
-    }
-  }
+    },
+  },
 }
 </script>
+
+<style scoped>
+.signup-bg {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.signup-card {
+  width: 450px;
+  max-width: 100%;
+  border-radius: 12px;
+  border: none;
+}
+
+@media (max-width: 576px) {
+  .signup-bg {
+    padding: 10px;
+    align-items: flex-start !important;
+    padding-top: 20px;
+  }
+
+  .signup-card {
+    width: 100%;
+    padding: 1.25rem !important;
+  }
+
+  .signup-card h3 {
+    font-size: 1.4rem;
+  }
+}
+</style>

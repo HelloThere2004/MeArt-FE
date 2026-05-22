@@ -32,9 +32,7 @@ export default {
   },
   methods: {
     async fetchGalleryData() {
-      const { data, error } = await supabase
-        .from('gallery')
-        .select('*')
+      const { data, error } = await supabase.from('gallery').select('*')
 
       if (error) {
         console.error('Lỗi khi kéo data từ Supabase:', error.message)
@@ -44,14 +42,14 @@ export default {
       if (data) {
         this.pics = data.map((item) => ({
           id: item.id,
-          img: item.image_url,    
-          name: item.title,       
+          img: item.image_url,
+          name: item.title,
           author: item.author,
           description: item.description,
         }))
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -88,5 +86,37 @@ export default {
 .text p {
   font-size: 18px;
   color: #555;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .wrapper {
+    width: 95%;
+    padding: 15px 15px;
+  }
+
+  .text h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .text p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+    padding: 10px 10px;
+  }
+
+  .text h1 {
+    font-size: 19px;
+  }
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <div class="container pic-card my-3">
     <div class="row">
-        <div class="col-sm-12 col-md-10">
-            <img :src="pic.img || ''" :alt="pic.alt || 'Image'" class="img-fluid" />
-        </div>
-        <div class="col-sm-12 col-md-2">
-            <h3>{{ pic.name }}</h3>
-            <p class="author">{{ pic.author }}</p>
-            <p class="description">{{ pic.description }}</p>
-        </div>
+      <div class="col-sm-12 col-md-10">
+        <img :src="pic.img || ''" :alt="pic.alt || 'Image'" class="img-fluid" />
+      </div>
+      <div class="col-sm-12 col-md-2">
+        <h3>{{ pic.name }}</h3>
+        <p class="author">{{ pic.author }}</p>
+        <p class="description">{{ pic.description }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -56,12 +56,11 @@ export default {
   text-align: left;
 }
 
-
 .col-md-2 {
   display: flex;
   justify-content: center;
   align-items: start;
- flex-direction: column;
+  flex-direction: column;
 }
 
 .pic-card .description {
@@ -69,19 +68,50 @@ export default {
   line-height: 1.4;
 }
 
-@media (max-width: 480px) {
+/* Mobile responsive */
+@media (max-width: 768px) {
   .pic-card {
     padding: 10px;
   }
 
+  .pic-card .row {
+    flex-direction: column;
+  }
+
   .pic-card img {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    object-fit: contain;
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+
+  .col-md-2 {
+    align-items: flex-start;
+    text-align: left;
   }
 
   .pic-card h3 {
-    font-size: 18px;
+    font-size: 17px;
+  }
+
+  .pic-card .author {
+    font-size: 14px;
+  }
+
+  .pic-card .description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pic-card img {
+    max-height: 250px;
+  }
+
+  .pic-card h3 {
+    font-size: 16px;
   }
 }
 </style>

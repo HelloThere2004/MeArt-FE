@@ -1,11 +1,14 @@
 <template>
   <div class="container time-table">
     <div class="info">
-        <h1>Đây là lịch học của lớp vẽ Mê Art</h1>
-        <p>Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có thể mở thêm hoặc bớt lại các giờ học.</p>
-        <p>Hiện tại, giờ học của lớp như sau: </p>
+      <h1>Đây là lịch học của lớp vẽ Mê Art</h1>
+      <p>
+        Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có
+        thể mở thêm hoặc bớt lại các giờ học.
+      </p>
+      <p>Hiện tại, giờ học của lớp như sau:</p>
     </div>
-    
+
     <div class="table-responsive">
       <table class="table table-bordered">
         <thead>
@@ -28,8 +31,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="table-success"><img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" /></td>
-            <td class="table-success"><img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" /></td>
+            <td class="table-success">
+              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
+            <td class="table-success">
+              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
           </tr>
           <tr>
             <td class="learn-time">14h - 18h</td>
@@ -38,7 +45,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="table-success"><img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" /></td>
+            <td class="table-success">
+              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
             <td></td>
           </tr>
           <tr>
@@ -46,8 +55,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="table-success"><img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" /></td>
-            <td class="table-success"><img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" /></td>
+            <td class="table-success">
+              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
+            <td class="table-success">
+              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
             <td></td>
             <td></td>
           </tr>
@@ -67,7 +80,7 @@ export default {}
 .time-table {
   margin: 20px auto;
   padding: 20px;
-  background-color:  #fffc;
+  background-color: #fffc;
   border-radius: 4px;
   max-width: 90%;
 }
@@ -117,33 +130,64 @@ export default {}
 
 .learn-time {
   font-weight: bold;
-  white-space: normal !important; 
-  word-break: break-word;         
-  overflow-wrap: break-word;      
+  white-space: normal !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
   max-width: 40px;
   font-size: 11px;
   line-height: 1.1;
   color: #333333;
 }
 
-@media (max-width: 480px) {
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .time-table {
+    margin: 10px auto;
+    padding: 12px;
+    max-width: 98%;
+  }
+
+  .info h1 {
+    font-size: 20px !important;
+  }
+
+  .info p {
+    font-size: 14px !important;
+  }
+
   .table th,
   .table td {
     font-size: 11px;
-    padding: 4px;
+    padding: 4px 2px;
   }
 
   .table td img {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
   }
 
   .learn-time {
     font-size: 10px;
     padding: 2px;
-    text-align: left;
+    max-width: 30px;
   }
-  
+}
 
+@media (max-width: 480px) {
+  .table th,
+  .table td {
+    font-size: 9px;
+    padding: 3px 1px;
+  }
+
+  .table td img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .learn-time {
+    font-size: 8px;
+    max-width: 24px;
+  }
 }
 </style>

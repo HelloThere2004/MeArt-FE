@@ -5,15 +5,32 @@
     <div class="card mb-4 p-4 bg-light border-0 shadow-sm">
       <div class="mb-3">
         <label class="form-label fw-bold">Tiêu đề bài viết</label>
-        <input v-model="newPost.title" type="text" class="form-control" placeholder="Nhập tiêu đề..." required />
+        <input
+          v-model="newPost.title"
+          type="text"
+          class="form-control"
+          placeholder="Nhập tiêu đề..."
+          required
+        />
       </div>
       <div class="mb-3">
         <label class="form-label fw-bold">Ảnh bìa (Cover Image)</label>
-        <input type="file" @change="onFileSelected" ref="fileInput" class="form-control" accept="image/*" />
+        <input
+          type="file"
+          @change="onFileSelected"
+          ref="fileInput"
+          class="form-control"
+          accept="image/*"
+        />
       </div>
       <div class="mb-3">
         <label class="form-label fw-bold">Nội dung</label>
-        <textarea v-model="newPost.content" class="form-control" rows="5" placeholder="Nội dung chi tiết..."></textarea>
+        <textarea
+          v-model="newPost.content"
+          class="form-control"
+          rows="5"
+          placeholder="Nội dung chi tiết..."
+        ></textarea>
       </div>
       <button @click="addPost" class="btn btn-primary" :disabled="isUploading">
         {{ isUploading ? 'Đang xử lý...' : 'Xuất bản bài viết' }}
@@ -22,15 +39,31 @@
 
     <h5 class="mb-3">Bài viết gần đây</h5>
     <div class="list-group">
-      <div v-for="post in posts" :key="post.id" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div
+        v-for="post in posts"
+        :key="post.id"
+        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+      >
         <div class="d-flex align-items-center gap-3">
-          <img v-if="post.cover_image" :src="post.cover_image" alt="cover" style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px;">
+          <img
+            v-if="post.cover_image"
+            :src="post.cover_image"
+            alt="cover"
+            style="width: 80px; height: 50px; object-fit: cover; border-radius: 4px"
+          />
           <div>
             <h6 class="mb-1 fw-bold">{{ post.title }}</h6>
-            <small class="text-muted">{{ new Date(post.created_at).toLocaleDateString('vi-VN') }}</small>
+            <small class="text-muted">{{
+              new Date(post.created_at).toLocaleDateString('vi-VN')
+            }}</small>
           </div>
         </div>
-        <button class="btn btn-sm btn-outline-danger" @click="deletePost(post.id, post.cover_image)">Xóa</button>
+        <button
+          class="btn btn-sm btn-outline-danger"
+          @click="deletePost(post.id, post.cover_image)"
+        >
+          Xóa
+        </button>
       </div>
     </div>
   </div>
@@ -54,7 +87,10 @@ export default {
   },
   methods: {
     async fetchPosts() {
-      const { data, error } = await supabase.from('posts').select('*').order('created_at', { ascending: false })
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false })
       if (!error) this.posts = data || []
     },
     onFileSelected(event) {
@@ -74,15 +110,20 @@ export default {
           // Cần tạo bucket 'posts' trên Supabase
           const fileExt = this.selectedImage.name.split('.').pop()
           const fileName = `${Date.now()}.${fileExt}`
-          const { uploadError } = await supabase.storage.from('posts').upload(fileName, this.selectedImage)
+          const { uploadError } = await supabase.storage
+            .from('posts')
+            .upload(fileName, this.selectedImage)
           if (uploadError) throw uploadError
           const { data } = supabase.storage.from('posts').getPublicUrl(fileName)
           coverUrl = data.publicUrl
         }
 
-        const { data: dbData, error: dbError } = await supabase.from('posts').insert([
-          { title: this.newPost.title, content: this.newPost.content, cover_image: coverUrl }
-        ]).select()
+        const { data: dbData, error: dbError } = await supabase
+          .from('posts')
+          .insert([
+            { title: this.newPost.title, content: this.newPost.content, cover_image: coverUrl },
+          ])
+          .select()
 
         if (dbError) throw dbError
 
@@ -104,11 +145,91 @@ export default {
           const fileName = coverUrl.split('/').pop()
           await supabase.storage.from('posts').remove([fileName])
         }
-        this.posts = this.posts.filter(p => p.id !== id)
+        this.posts = this.posts.filter((p) => p.id !== id)
       } catch (error) {
         console.error(error)
       }
-    }
-  }
+    },
+  },
 }
 </script>
+
+<style scoped>
+.admin-posts {
+  max-width: 100%;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .card.p-4 {
+    padding: 1rem !important;
+  }
+
+  .card .form-control,
+  .card textarea {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+
+  .card .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .list-group-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .list-group-item img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 160px;
+    object-fit: cover;
+  }
+
+  .list-group-item .btn {
+    width: 100%;
+  }
+
+  .list-group-item h6 {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-posts h3 {
+    font-size: 18px;
+  }
+
+  .admin-posts h5 {
+    font-size: 15px;
+  }
+
+  .card.p-4 {
+    padding: 0.75rem !important;
+  }
+
+  .card .form-control,
+  .card textarea {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .card .btn {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .list-group-item {
+    padding: 10px;
+  }
+
+  .list-group-item h6 {
+    font-size: 14px;
+  }
+}
+</style>
