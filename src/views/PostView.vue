@@ -6,55 +6,39 @@
         <p class="text-muted">Cập nhật những thông tin mới nhất từ lớp vẽ Mê Art</p>
       </div>
 
+      <!-- Loading -->
       <div v-if="loading" class="text-center py-5">
         <div class="spinner-border text-warning" role="status">
           <span class="visually-hidden">Đang tải...</span>
         </div>
       </div>
 
+      <!-- Empty state -->
       <div v-else-if="posts.length === 0" class="text-center py-5 text-muted">
         <p>Chưa có bài viết nào.</p>
       </div>
 
-      <div v-else class="row g-4">
-        <div class="col-md-6 col-lg-4" v-for="post in posts" :key="post.id">
-          <div class="card h-100 shadow-sm post-card">
-            <img
-              v-if="post.cover_image"
-              :src="post.cover_image"
-              :alt="post.title"
-              class="card-img-top post-cover"
-            />
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title fw-bold">{{ post.title }}</h5>
-              <small class="text-muted mb-2">
-                {{ formatDate(post.created_at) }}
-              </small>
-              <p class="card-text text-muted flex-grow-1">
-                {{ getExcerpt(post.content) }}
-              </p>
-              <button
-                class="btn btn-outline-dark btn-sm mt-2 align-self-start"
-                @click="selectedPost = post"
-                data-bs-toggle="modal"
-                data-bs-target="#postDetailModal"
-              >
-                Đọc thêm
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- Post cards: vertical feed layout -->
+      <div v-else class="post-feed">
+        <Post
+          v-for="post in posts"
+          :key="post.id"
+          :post="post"
+          @read-more="openModal"
+          class="mb-4"
+        />
       </div>
     </div>
 
-    <!-- Post Detail Modal -->
+    <!-- SINGLE shared modal (outside the loop) -->
     <div
+      v-if="selectedPost"
       class="modal fade"
       id="postDetailModal"
       tabindex="-1"
       aria-labelledby="postDetailModalLabel"
       aria-hidden="true"
-      v-if="selectedPost"
+      ref="postModal"
     >
       <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
@@ -71,13 +55,13 @@
           </div>
           <div class="modal-body">
             <img
-              v-if="selectedPost.cover_image"
-              :src="selectedPost.cover_image"
+              v-if="selectedPost.image_url"
+              :src="selectedPost.image_url"
               :alt="selectedPost.title"
               class="img-fluid rounded mb-3 w-100 modal-cover"
             />
             <small class="text-muted d-block mb-3">
-              {{ formatDate(selectedPost.created_at) }}
+              {{ formatDate(selectedPost.published_at || selectedPost.created_at) }}
             </small>
             <div class="post-content" v-html="formatContent(selectedPost.content)"></div>
           </div>
@@ -93,15 +77,21 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
+import { Modal } from 'bootstrap'
+import Post from '@/components/Post.vue'
 import { supabase } from '@/utils/supabase.js'
 
 export default {
   name: 'PostView',
+  components: {
+    Post,
+  },
   data() {
     return {
       posts: [],
       selectedPost: null,
       loading: true,
+      modalInstance: null,
     }
   },
   async mounted() {
@@ -113,7 +103,8 @@ export default {
       const { data, error } = await supabase
         .from('posts')
         .select('*')
-        .order('created_at', { ascending: false })
+        .eq('is_published', true)
+        .order('published_at', { ascending: false })
 
       if (error) {
         console.error('Lỗi khi tải bài viết:', error.message)
@@ -121,6 +112,17 @@ export default {
         this.posts = data || []
       }
       this.loading = false
+    },
+    openModal(post) {
+      this.selectedPost = post
+      // Wait for Vue to render the modal, then show it
+      this.$nextTick(() => {
+        const modalEl = this.$refs.postModal
+        if (modalEl) {
+          this.modalInstance = new Modal(modalEl)
+          this.modalInstance.show()
+        }
+      })
     },
     formatDate(dateStr) {
       if (!dateStr) return ''
@@ -130,16 +132,15 @@ export default {
         day: 'numeric',
       })
     },
-    getExcerpt(content) {
-      if (!content) return ''
-      // Strip HTML tags and limit to ~150 chars
-      const plain = content.replace(/<[^>]*>/g, '')
-      return plain.length > 150 ? plain.substring(0, 150) + '...' : plain
-    },
     formatContent(content) {
       if (!content) return ''
-      // Convert newlines to <br> for display
-      return content.replace(/\n/g, '<br>')
+      // Split by double newlines to form paragraphs
+      return content
+        .split(/\n\s*\n/)
+        .map((para) => para.trim())
+        .filter((para) => para.length > 0)
+        .map((para) => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+        .join('')
     },
   },
 }
@@ -158,23 +159,9 @@ export default {
   font-weight: bold;
 }
 
-.post-card {
-  border: none;
-  border-radius: 12px;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-  overflow: hidden;
-}
-
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
-}
-
-.post-cover {
-  height: 200px;
-  object-fit: cover;
+.post-feed {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .modal-cover {
@@ -186,6 +173,12 @@ export default {
   line-height: 1.7;
   font-size: 16px;
   white-space: pre-line;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.post-content :deep(p) {
+  margin-bottom: 1rem;
 }
 
 /* Mobile responsive */
@@ -196,23 +189,6 @@ export default {
 
   .post-view h1 {
     font-size: 22px;
-  }
-
-  .post-cover {
-    height: 180px;
-  }
-
-  .card-title {
-    font-size: 16px;
-  }
-
-  .card-text {
-    font-size: 14px;
-  }
-
-  .modal-dialog {
-    margin: 0.5rem;
-    max-width: calc(100% - 1rem);
   }
 
   .modal-cover {
@@ -227,10 +203,6 @@ export default {
 @media (max-width: 480px) {
   .post-view h1 {
     font-size: 20px;
-  }
-
-  .post-cover {
-    height: 160px;
   }
 }
 </style>

@@ -39,6 +39,12 @@
           <li class="nav-item">
             <RouterLink to="/posts" class="nav-link" @click="closeMenu">Bài viết</RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink to="/register" class="nav-link" @click="closeMenu">Đăng ký học</RouterLink>
+          </li>
+          <li class="nav-item">
+            <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu">Học sinh ưu tú</RouterLink>
+          </li>
         </ul>
 
         <!-- Auth Buttons -->

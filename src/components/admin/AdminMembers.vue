@@ -56,7 +56,11 @@
           </thead>
           <tbody>
             <tr v-for="member in members" :key="member.id">
-              <td>{{ member.id }}</td>
+              <td>
+                <span :title="member.id" class="text-muted" style="cursor: pointer">
+                  {{ member.id.substring(0, 8) }}...
+                </span>
+              </td>
               <td class="fw-bold">
                 <img
                   v-if="member.image_url"
@@ -171,10 +175,19 @@ export default {
         const fileName = `${Date.now()}.${fileExt}`
 
         // Upload ảnh lên bucket 'members'
-        const { uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from('members')
           .upload(fileName, this.selectedImage)
-        if (uploadError) throw uploadError
+        if (uploadError) {
+          console.error('Upload error:', uploadError.message)
+          alert(
+            'Lỗi upload ảnh: ' +
+              uploadError.message +
+              '. Kiểm tra bucket "members" đã có policy cho phép upload chưa?',
+          )
+          this.isUploading = false
+          return
+        }
 
         // Lấy link public
         const { data: publicUrlData } = supabase.storage.from('members').getPublicUrl(fileName)
@@ -280,7 +293,26 @@ export default {
 .min-w-0 {
   min-width: 0;
 }
+/* Thiết lập layout bảng cứng, không cho tự phình to */
+.table-view table {
+  table-layout: fixed;
+  width: 100%;
+}
 
+
+.table-view td {
+  white-space: normal !important;
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+
+.table-view th:nth-child(1) { width: 12%; } /* ID */
+.table-view th:nth-child(2) { width: 25%; } /* Thành viên */
+.table-view th:nth-child(3) { width: 15%; } /* Vai trò */
+.table-view th:nth-child(4) { width: 38%; } /* Mô tả */
+.table-view th:nth-child(5) { width: 10%; } /* Hành động */
 /* ============ RESPONSIVE ============ */
 
 /* Tablet & below: stack form fields */

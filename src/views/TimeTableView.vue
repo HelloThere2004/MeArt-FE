@@ -2,67 +2,50 @@
   <div class="container time-table">
     <div class="info">
       <h1>Đây là lịch học của lớp vẽ Mê Art</h1>
-      <p>
-        Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có
-        thể mở thêm hoặc bớt lại các giờ học.
-      </p>
+      <p>Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có thể mở thêm hoặc bớt lại các giờ học.</p>
       <p>Hiện tại, giờ học của lớp như sau:</p>
     </div>
 
-    <div class="table-responsive">
+    <!-- Cục xoay loading -->
+    <div v-if="loading" class="text-center my-4">
+      <div class="spinner-border text-warning" role="status"></div>
+    </div>
+
+    <div v-else class="table-responsive">
       <table class="table table-bordered">
         <thead>
           <tr>
             <th></th>
-            <th>T2</th>
-            <th>T3</th>
-            <th>T4</th>
-            <th>T5</th>
-            <th>T6</th>
-            <th>T7</th>
-            <th>CN</th>
+            <th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="learn-time">8h - 12h</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="table-success">
-              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+          <!-- Dùng v-for để render từng dòng từ Database -->
+          <tr v-for="row in schedules" :key="row.id">
+            <td class="learn-time">{{ row.time_slot }}</td>
+            
+            <!-- Truyền động class table-success và icon nều cột đó là TRUE -->
+            <td :class="{'table-success': row.t2}">
+              <img v-if="row.t2" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td class="table-success">
-              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            <td :class="{'table-success': row.t3}">
+              <img v-if="row.t3" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-          </tr>
-          <tr>
-            <td class="learn-time">14h - 18h</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="table-success">
-              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            <td :class="{'table-success': row.t4}">
+              <img v-if="row.t4" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td class="learn-time">18h - 21h</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="table-success">
-              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            <td :class="{'table-success': row.t5}">
+              <img v-if="row.t5" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td class="table-success">
-              <img src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            <td :class="{'table-success': row.t6}">
+              <img v-if="row.t6" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td></td>
-            <td></td>
+            <td :class="{'table-success': row.t7}">
+              <img v-if="row.t7" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
+            <td :class="{'table-success': row.cn}">
+              <img v-if="row.cn" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+            </td>
           </tr>
         </tbody>
       </table>
@@ -71,9 +54,35 @@
 </template>
 
 <script>
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
-export default {}
+import { supabase } from '@/utils/supabase.js'
+
+export default {
+  data() {
+    return {
+      schedules: [],
+      loading: true
+    }
+  },
+  async mounted() {
+    await this.fetchTimetable()
+  },
+  methods: {
+    async fetchTimetable() {
+      this.loading = true
+      const { data, error } = await supabase
+        .from('timetable')
+        .select('*')
+        .order('sort_order', { ascending: true }) // Sort cho đúng thứ tự giờ
+
+      if (!error) {
+        this.schedules = data || []
+      } else {
+        console.error("Lỗi tải lịch học:", error.message)
+      }
+      this.loading = false
+    }
+  }
+}
 </script>
 
 <style>

@@ -15,7 +15,7 @@ export default {}
 h2 {
   text-align: center;
   margin-top: 20px;
-  color: rgb(120, 110, 0);
+  color: rgb(241, 232, 124);
   font-weight: bold;
 }
 a {
@@ -23,7 +23,7 @@ a {
   text-align: center;
   margin-top: 20px;
   font-size: 20px;
-  color: rgb(120, 110, 0);
+  color: rgb(241, 232, 124);
   text-decoration: none;
   font-weight: bold;
 }

@@ -99,11 +99,20 @@ export default {
         const fileExt = this.selectedImage.name.split('.').pop()
         const fileName = `${Date.now()}.${fileExt}`
 
-        // Cần tạo bucket 'gallery' trên Supabase nhé sếp
-        const { uploadError } = await supabase.storage
+        // Upload ảnh lên bucket 'gallery'
+        const { error: uploadError } = await supabase.storage
           .from('gallery')
           .upload(fileName, this.selectedImage)
-        if (uploadError) throw uploadError
+        if (uploadError) {
+          console.error('Upload error:', uploadError.message)
+          alert(
+            'Lỗi upload ảnh: ' +
+              uploadError.message +
+              '. Kiểm tra bucket "gallery" đã có policy cho phép upload chưa?',
+          )
+          this.isUploading = false
+          return
+        }
 
         const { data: publicUrlData } = supabase.storage.from('gallery').getPublicUrl(fileName)
 
