@@ -4,7 +4,7 @@
       <div class="col-md-6 footer-info">
         <h3 class="text">Thông tin liên hệ</h3>
         <p>Thầy Nguyễn Văn Hảo</p>
-        <p>Địa chỉ: 47 Đường Trần Thị Liền, Xã Phước Kiển, Huyện Nhà Bè</p>
+        <p>Địa chỉ: 47 Đường Trần Thị Liền, Xã Nhà Bè</p>
         <p>Điện thoại: 0988510571</p>
       </div>
       <div class="col-md-6 text-md-end footer-slogan">

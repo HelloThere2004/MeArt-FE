@@ -43,13 +43,21 @@
             <RouterLink to="/register" class="nav-link" @click="closeMenu">Đăng ký học</RouterLink>
           </li>
           <li class="nav-item">
-            <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu">Học sinh ưu tú</RouterLink>
+            <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
+              >Học sinh ưu tú</RouterLink
+            >
           </li>
         </ul>
 
         <!-- Auth Buttons -->
         <div class="d-flex align-items-center gap-2">
           <template v-if="isAuthenticated">
+            <span class="user-greeting d-none d-md-inline">
+              <i class="bi bi-person-circle me-1"></i>{{ userName }}
+            </span>
+            <span class="user-greeting-mobile d-md-none w-100 text-center mb-2">
+              <i class="bi bi-person-circle me-1"></i>{{ userName }}
+            </span>
             <RouterLink to="/admin" class="btn btn-outline-dark btn-sm">
               <i class="bi bi-speedometer2"></i> Admin
             </RouterLink>
@@ -81,6 +89,7 @@ export default {
     return {
       isAuthenticated: false,
       menuOpen: false,
+      userName: '',
     }
   },
   async mounted() {
@@ -88,6 +97,11 @@ export default {
     // Listen for auth state changes
     supabase.auth.onAuthStateChange((event, session) => {
       this.isAuthenticated = !!session
+      if (session) {
+        this.fetchUserName(session.user)
+      } else {
+        this.userName = ''
+      }
     })
   },
   methods: {
@@ -100,6 +114,14 @@ export default {
     async checkAuth() {
       const { data } = await supabase.auth.getSession()
       this.isAuthenticated = !!data.session
+      if (data.session) {
+        this.fetchUserName(data.session.user)
+      }
+    },
+    fetchUserName(user) {
+      // Prefer user_metadata.name, fall back to email
+      const meta = user?.user_metadata || {}
+      this.userName = meta.name || meta.full_name || user?.email?.split('@')[0] || 'User'
     },
     async handleLogout() {
       await supabase.auth.signOut()
@@ -188,6 +210,29 @@ export default {
   color: #fff;
 }
 
+.user-greeting {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-greeting-mobile {
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  display: block;
+}
+
 /* Mobile & tablet responsive */
 @media (max-width: 991px) {
   .navbar {
@@ -210,6 +255,10 @@ export default {
     padding-bottom: 0.5rem;
     flex-wrap: wrap;
     gap: 8px !important;
+  }
+
+  .d-flex.align-items-center .user-greeting-mobile {
+    order: -1;
   }
 
   .btn-sm {
