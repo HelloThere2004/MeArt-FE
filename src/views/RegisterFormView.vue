@@ -24,8 +24,20 @@
           <option value="" disabled>-- Chọn lớp học --</option>
           <option value="Mê Art Class (Học vẽ tự do)">Mê Art Class (Học vẽ tự do)</option>
           <option value="Luyện thi Đại học">Luyện thi Đại học (Kiến trúc, Mỹ thuật)</option>
-          <!-- <option value="Mê Art Studio (Dịch vụ vẽ/Thuê xưởng)">Mê Art Studio (Dịch vụ vẽ/Thuê xưởng)</option> -->
           <option value="Khác">Khác</option>
+        </select>
+      </div>
+
+      <!-- TRƯỜNG CHỌN GIỜ HỌC MỚI -->
+      <div class="mb-3">
+        <label class="form-label fw-bold">Giờ học mong muốn *</label>
+        <select v-model="formData.preferred_time" class="form-select" required>
+          <option value="" disabled>-- Chọn thời gian --</option>
+          <option value="Sáng (8h - 11h)">Sáng (8h - 11h)</option>
+          <option value="Chiều (14h - 17h)">Chiều (14h - 17h)</option>
+          <option value="Tối (18h - 21h)">Tối (18h - 21h)</option>
+          <option value="Cuối tuần (Thứ 7 - CN)">Cuối tuần (Thứ 7 - CN)</option>
+          <option value="Chưa xác định / Cần tư vấn">Chưa xác định / Cần tư vấn</option>
         </select>
       </div>
 
@@ -53,6 +65,7 @@ export default {
         name: '',
         phone: '',
         course_interest: '',
+        preferred_time: '', // State mới
         message: ''
       },
       isSubmitting: false,
@@ -71,7 +84,7 @@ export default {
         
         this.isSuccess = true
         // Xóa form sau khi gửi
-        this.formData = { name: '', phone: '', course_interest: '', message: '' }
+        this.formData = { name: '', phone: '', course_interest: '', preferred_time: '', message: '' }
         
         // Reset thông báo sau 5 giây
         setTimeout(() => {
