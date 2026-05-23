@@ -132,11 +132,12 @@
               <option value="Thành công">Thành công</option>
               <option value="Hủy">Hủy</option>
             </select>
+
             <button
               class="btn btn-sm btn-outline-danger flex-shrink-0"
               @click="deleteRegistration(reg.id)"
             >
-              <i class="bi bi-trash"></i>
+              <i class="bi bi-trash"></i> Xóa
             </button>
           </div>
         </div>
