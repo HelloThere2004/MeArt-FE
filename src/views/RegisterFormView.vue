@@ -22,7 +22,7 @@
         <label class="form-label fw-bold">Bạn quan tâm đến? *</label>
         <select v-model="formData.course_interest" class="form-select" required>
           <option value="" disabled>-- Chọn lớp học --</option>
-          <option value="Mê Art Class (Học vẽ tự do)">Mê Art Class (Học vẽ tự do)</option>
+          <option value="Mê Art Class (Học vẽ tự do)">Học vẽ tự do</option>
           <option value="Luyện thi Đại học">Luyện thi Đại học (Kiến trúc, Mỹ thuật)</option>
           <option value="Khác">Khác</option>
         </select>
