@@ -44,7 +44,13 @@
         >
           Quản lý Lịch học
         </button>
-
+        <button
+          class="list-group-item list-group-item-action"
+          :class="{ active: currentTab === 'students' }"
+          @click="switchTab('students')"
+        >
+          Quản lý Học sinh
+        </button>
         <button
           class="list-group-item list-group-item-action"
           :class="{ active: currentTab === 'register' }"
@@ -72,10 +78,10 @@
 import AdminMembers from '../components/admin/AdminMembers.vue'
 import AdminPosts from '../components/admin/AdminPosts.vue'
 import AdminGallery from '../components/admin/AdminGallery.vue'
-import AdminTimeTable from '../components/admin/AdminTimeTable.vue' 
+import AdminTimeTable from '../components/admin/AdminTimeTable.vue'
 import AdminRegisterForm from '@/components/admin/AdminRegisterForm.vue'
-
 import AdminOutstandingStudent from '@/components/admin/AdminOutstandingStudent.vue'
+import AdminStudents from '@/components/admin/AdminStudents.vue'
 export default {
   name: 'AdminView',
   components: {
@@ -85,6 +91,7 @@ export default {
     AdminTimeTable,
     AdminRegisterForm,
     AdminOutstandingStudent,
+    AdminStudents,
   },
   data() {
     return {
@@ -97,9 +104,10 @@ export default {
       if (this.currentTab === 'members') return 'AdminMembers'
       if (this.currentTab === 'posts') return 'AdminPosts'
       if (this.currentTab === 'gallery') return 'AdminGallery'
-      if (this.currentTab === 'timetable') return 'AdminTimeTable' 
+      if (this.currentTab === 'timetable') return 'AdminTimeTable'
       if (this.currentTab === 'register') return 'AdminRegisterForm'
       if (this.currentTab === 'outstanding') return 'AdminOutstandingStudent'
+      if (this.currentTab === 'students') return 'AdminStudents'
     },
   },
   methods: {
