@@ -28,16 +28,15 @@
         </select>
       </div>
 
-      <!-- TRƯỜNG CHỌN GIỜ HỌC ĐÃ ĐƯỢC ĐỒNG BỘ DỮ LIỆU TỪ SUPABASE -->
       <div class="mb-3">
         <label class="form-label fw-bold">Giờ học mong muốn *</label>
         <select v-model="formData.preferred_time" class="form-select" required :disabled="isLoadingSlots">
           <option value="" disabled>
             {{ isLoadingSlots ? 'Đang tải lịch học...' : '-- Chọn thời gian --' }}
           </option>
-          <!-- Load tự động từ bảng timetable -->
-          <option v-for="slot in timeSlots" :key="slot.id" :value="slot.time_slot">
-            {{ slot.time_slot }}
+          <!-- Load tự động và nối chuỗi từ bảng timetable -->
+          <option v-for="slot in timeSlots" :key="slot.id" :value="slot.full_label">
+            {{ slot.full_label }}
           </option>
           <!-- Option thủ công nằm cuối -->
           <option value="Chưa xác định / Cần tư vấn">Chưa xác định / Cần tư vấn</option>
@@ -71,28 +70,48 @@ export default {
         preferred_time: '', 
         message: ''
       },
-      timeSlots: [], // Chứa dữ liệu giờ học từ database
+      timeSlots: [], 
       isLoadingSlots: false,
       isSubmitting: false,
       isSuccess: false
     }
   },
   async mounted() {
-    // Gọi hàm kéo dữ liệu ngay khi form vừa render xong
     await this.fetchTimeSlots()
   },
   methods: {
     async fetchTimeSlots() {
       this.isLoadingSlots = true
       try {
+        // Lấy full tất cả các cột ngày trong tuần
         const { data, error } = await supabase
           .from('timetable')
-          .select('id, time_slot')
-          .order('sort_order', { ascending: true }) // Sắp xếp theo đúng thứ tự ông đã set
+          .select('id, time_slot, t2, t3, t4, t5, t6, t7, cn')
+          .order('sort_order', { ascending: true })
 
         if (error) throw error
         
-        this.timeSlots = data || []
+        // Xử lý data: Lọc qua các ngày có giá trị TRUE và nối lại thành chuỗi
+        this.timeSlots = (data || []).map(slot => {
+          let days = []
+          if (slot.t2) days.push('T2')
+          if (slot.t3) days.push('T3')
+          if (slot.t4) days.push('T4')
+          if (slot.t5) days.push('T5')
+          if (slot.t6) days.push('T6')
+          if (slot.t7) days.push('T7')
+          if (slot.cn) days.push('CN')
+          
+          // Tạo chuỗi hiển thị, ví dụ: "8h - 12h (T7, CN)"
+          const daysString = days.length > 0 ? ` (${days.join(', ')})` : ''
+          const full_label = `${slot.time_slot}${daysString}`
+          
+          return {
+            id: slot.id,
+            full_label: full_label
+          }
+        })
+
       } catch (error) {
         console.error('Lỗi tải danh sách giờ học:', error.message)
       } finally {
@@ -109,10 +128,8 @@ export default {
         if (error) throw error
         
         this.isSuccess = true
-        // Xóa form sau khi gửi
         this.formData = { name: '', phone: '', course_interest: '', preferred_time: '', message: '' }
         
-        // Reset thông báo sau 5 giây
         setTimeout(() => {
           this.isSuccess = false
         }, 5000)
