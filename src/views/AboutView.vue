@@ -1,12 +1,12 @@
 <template>
   <div class="about">
-    <h1>Về lớp vẽ Mê Art</h1>
+    <h1>Về Mê Art</h1>
     <p>
-      Lớp Mê Art được thành lập với mong muốn giúp các bạn học sinh có ước mơ theo ngành vẽ có thể
+      Mê Art được thành lập với mong muốn giúp các bạn học sinh có ước mơ theo ngành vẽ có thể
       đến học tập và rèn luyện kỹ năng vẽ của mình và có thể vào được trường đại học mình mong muốn.
       Ngoài ra, những bạn chưa ôn thi đại học vào các ngành mỹ thuật cũng có thể đến để học tập và
       rèn luyện kỹ năng vẽ của mình vì đam mê cũng như là giao lưu, kết bạn với những người bạn có
-      cùng sở thích với mình. Lớp Mê Art được thành lập vào năm 2022, đến nay đã {{ year }} rồi đó.
+      cùng sở thích với mình. Mê Art được thành lập vào năm 2022, đến nay đã {{ year }} năm rồi đó.
       Khi đó lớp chỉ có 3 bạn học viên thôi nhưng đến nay đã có gần 30 bạn học viên rồi. Cảm ơn các
       bạn và quý phụ huynh đã tin tưởng và đồng hành cùng lớp Mê Art trong suốt thời gian qua.
     </p>

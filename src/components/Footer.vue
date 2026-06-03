@@ -4,7 +4,8 @@
       <div class="col-md-6 footer-info">
         <h3 class="text">Thông tin liên hệ</h3>
         <p>Thầy Nguyễn Văn Hảo</p>
-        <p>Địa chỉ: 47 Đường Trần Thị Liền, Xã Nhà Bè</p>
+        <p>Làng Đại học khu B</p>
+        <p>47 Đường Trần Thị Liền, Xã Nhà Bè, Thành phố Hồ Chí Minh</p>
         <p>Điện thoại: 0988510571</p>
       </div>
       <div class="col-md-6 text-md-end footer-slogan">
@@ -32,7 +33,7 @@ export default {
 /* Đổi nền Footer sang Xanh lam, chữ Trắng */
 .footer {
   background-color: #1e40af;
-  color: #ffffff; 
+  color: #ffffff;
   padding: 20px 30px;
   line-height: 1.4;
   font-size: 14px;
@@ -59,15 +60,17 @@ export default {
 .slogan-main {
   font-size: 24px;
   font-weight: bold;
-  color: #ffffff; 
-  font-family: 'Pacifico', sans-serif;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-style: italic;
 }
 
 .slogan-sub {
   font-size: 22px;
   font-weight: bold;
   color: #ffffff;
-  font-family: 'Pacifico', sans-serif;
+  font-family: Arial, sans-serif;
+  font-style: italic;
 }
 
 /* Mobile responsive */

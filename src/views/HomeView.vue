@@ -5,7 +5,7 @@
       <div class="hero-overlay">
         <!-- Khung chữ ở giữa -->
         <div class="hero-content-box">
-          <h1>Chào mừng đến với lớp vẽ Mê Art</h1>
+          <h1>Chào mừng đến với Mê Art</h1>
           <p>
             Nơi ươm mầm đam mê hội họa và rèn luyện kỹ năng chinh phục trường đại học mơ ước của
             bạn.
@@ -52,7 +52,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .hero-content-box {

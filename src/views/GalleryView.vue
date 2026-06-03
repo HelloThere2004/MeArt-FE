@@ -2,7 +2,7 @@
   <div class="container">
     <div class="wrapper">
       <div class="text">
-        <h1>Đây là các tác phẩm tiêu biểu của các bạn học sinh tại Mê Art</h1>
+        <h1>Các tác phẩm tiêu biểu của các bạn học sinh tại Mê Art</h1>
       </div>
       <div class="pics" v-for="pic in pics" :key="pic.id">
         <Pic :pic="pic" />
