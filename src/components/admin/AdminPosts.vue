@@ -1,8 +1,8 @@
 <template>
   <div class="admin-posts">
-    <h3 class="mb-4">Đăng Bài Viết / Tin Tức</h3>
+    <h3 class="mb-4" style="color: #1e40af">Đăng Bài Viết / Tin Tức</h3>
 
-    <div class="card mb-4 p-4 bg-light border-0 shadow-sm">
+    <div class="card mb-4 p-4 border-0 shadow-sm" style="background-color: #ffffff">
       <h5 v-if="!isEditing">+ Thêm bài viết mới</h5>
       <h5 v-else>✏️ Chỉnh sửa bài viết</h5>
       <div class="mb-3">

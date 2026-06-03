@@ -16,7 +16,7 @@
             {{ getExcerpt(post.content) }}
           </p>
           <button
-            class="btn btn-outline-dark btn-sm mt-2 align-self-start"
+            class="btn btn-outline-primary btn-sm mt-2 align-self-start"
             @click="$emit('read-more', post)"
           >
             Đọc thêm
@@ -60,17 +60,18 @@ export default {
 
 <style scoped>
 .post-card {
-  border: none;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
   overflow: hidden;
+  background-color: #ffffff;
 }
 
 .post-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 8px 25px rgba(30, 64, 175, 0.12) !important;
 }
 
 .post-cover {

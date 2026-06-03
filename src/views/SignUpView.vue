@@ -55,7 +55,12 @@
           />
         </div>
 
-        <button type="submit" class="btn btn-dark w-100 mb-3" :disabled="isLoading">
+        <button
+          type="submit"
+          class="btn btn-primary w-100 mb-3"
+          :disabled="isLoading"
+          style="background-color: #1e40af; border-color: #1e40af"
+        >
           {{ isLoading ? 'Đang tạo tài khoản...' : 'Đăng ký' }}
         </button>
 
@@ -142,7 +147,7 @@ export default {
 
 <style scoped>
 .signup-bg {
-  background-color: #f5f5f5;
+  background-color: #f0f4ff;
   padding: 15px;
 }
 

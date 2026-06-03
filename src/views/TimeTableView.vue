@@ -2,13 +2,15 @@
   <div class="container time-table">
     <div class="info">
       <h1>Đây là lịch học của lớp vẽ Mê Art</h1>
-      <p>Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có thể mở thêm hoặc bớt lại các giờ học.</p>
+      <p>
+        Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có
+        thể mở thêm hoặc bớt lại các giờ học.
+      </p>
       <p>Hiện tại, giờ học của lớp như sau:</p>
     </div>
 
-    <!-- Cục xoay loading -->
     <div v-if="loading" class="text-center my-4">
-      <div class="spinner-border text-warning" role="status"></div>
+      <div class="spinner-border text-primary" role="status"></div>
     </div>
 
     <div v-else class="table-responsive">
@@ -16,34 +18,38 @@
         <thead>
           <tr>
             <th></th>
-            <th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th>
+            <th>T2</th>
+            <th>T3</th>
+            <th>T4</th>
+            <th>T5</th>
+            <th>T6</th>
+            <th>T7</th>
+            <th>CN</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Dùng v-for để render từng dòng từ Database -->
           <tr v-for="row in schedules" :key="row.id">
             <td class="learn-time">{{ row.time_slot }}</td>
-            
-            <!-- Truyền động class table-success và icon nều cột đó là TRUE -->
-            <td :class="{'table-success': row.t2}">
+
+            <td :class="{ 'table-success': row.t2 }">
               <img v-if="row.t2" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.t3}">
+            <td :class="{ 'table-success': row.t3 }">
               <img v-if="row.t3" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.t4}">
+            <td :class="{ 'table-success': row.t4 }">
               <img v-if="row.t4" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.t5}">
+            <td :class="{ 'table-success': row.t5 }">
               <img v-if="row.t5" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.t6}">
+            <td :class="{ 'table-success': row.t6 }">
               <img v-if="row.t6" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.t7}">
+            <td :class="{ 'table-success': row.t7 }">
               <img v-if="row.t7" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
-            <td :class="{'table-success': row.cn}">
+            <td :class="{ 'table-success': row.cn }">
               <img v-if="row.cn" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
             </td>
           </tr>
@@ -60,7 +66,7 @@ export default {
   data() {
     return {
       schedules: [],
-      loading: true
+      loading: true,
     }
   },
   async mounted() {
@@ -77,11 +83,11 @@ export default {
       if (!error) {
         this.schedules = data || []
       } else {
-        console.error("Lỗi tải lịch học:", error.message)
+        console.error('Lỗi tải lịch học:', error.message)
       }
       this.loading = false
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -89,9 +95,10 @@ export default {
 .time-table {
   margin: 20px auto;
   padding: 20px;
-  background-color: #fffc;
-  border-radius: 4px;
+  background-color: #ffffff;
+  border-radius: 8px;
   max-width: 90%;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
 }
 
 .table-responsive {
@@ -108,8 +115,9 @@ export default {
   color: #333333;
 }
 
+/* Đổi nền ô có lịch sang xanh nhạt */
 .table-success {
-  background-color: #b2fab4 !important;
+  background-color: #dbeafe !important;
   border: 1px solid #323232;
 }
 
@@ -124,10 +132,11 @@ export default {
   white-space: nowrap; /* Prevent text wrapping */
 }
 
+/* Đổi nền tiêu đề sang xanh lam đậm, chữ trắng */
 .table th {
-  background-color: #f9ec9c;
+  background-color: #1e40af;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
 }
 
 .table td img {
@@ -137,6 +146,7 @@ export default {
   margin: 0 auto;
 }
 
+/* Đổi màu chữ giờ học sang xanh lam */
 .learn-time {
   font-weight: bold;
   white-space: normal !important;
@@ -145,7 +155,7 @@ export default {
   max-width: 40px;
   font-size: 11px;
   line-height: 1.1;
-  color: #333333;
+  color: #1e40af;
 }
 
 /* Mobile responsive */

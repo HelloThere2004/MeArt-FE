@@ -30,10 +30,11 @@ export default {
 
 <style scoped>
 .pic-card {
-  background-color: #e4e4e4;
+  background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+  border: 1px solid #e8ecf4;
 }
 
 .pic-card img {
@@ -46,12 +47,12 @@ export default {
 .pic-card h3 {
   font-size: 20px;
   margin-bottom: 5px;
-  color: #333;
+  color: #1e40af;
 }
 
 .pic-card .author {
   font-weight: bold;
-  color: #666;
+  color: #64748b;
   margin-bottom: 8px;
   text-align: left;
 }
@@ -64,7 +65,7 @@ export default {
 }
 
 .pic-card .description {
-  color: #555;
+  color: #475569;
   line-height: 1.4;
 }
 

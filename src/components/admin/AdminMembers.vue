@@ -1,9 +1,9 @@
 <template>
   <div class="admin-members">
-    <h3 class="mb-4">Danh sách Giáo viên / Nhân viên</h3>
+    <h3 class="mb-4" style="color: #1e40af">Danh sách Giáo viên / Nhân viên</h3>
 
     <!-- Add member form -->
-    <div class="card mb-4 p-3 bg-light border-0 shadow-sm add-form">
+    <div class="card mb-4 p-3 border-0 shadow-sm add-form" style="background-color: #ffffff">
       <h5>+ Thêm thành viên mới</h5>
       <div class="form-fields mt-2">
         <input
@@ -45,13 +45,13 @@
     <div class="table-view d-none d-md-block">
       <div class="table-responsive">
         <table class="table table-hover align-middle">
-          <thead class="table-dark">
+          <thead style="background-color: #1e40af; color: #ffffff">
             <tr>
-              <th>ID</th>
-              <th>Thành viên</th>
-              <th>Vai trò</th>
-              <th>Mô tả</th>
-              <th class="text-center">Hành động</th>
+              <th style="color: #ffffff">ID</th>
+              <th style="color: #ffffff">Thành viên</th>
+              <th style="color: #ffffff">Vai trò</th>
+              <th style="color: #ffffff">Mô tả</th>
+              <th style="color: #ffffff" class="text-center">Hành động</th>
             </tr>
           </thead>
           <tbody>
@@ -299,7 +299,6 @@ export default {
   width: 100%;
 }
 
-
 .table-view td {
   white-space: normal !important;
   word-wrap: break-word;
@@ -307,12 +306,21 @@ export default {
   overflow-wrap: break-word;
 }
 
-
-.table-view th:nth-child(1) { width: 12%; } /* ID */
-.table-view th:nth-child(2) { width: 25%; } /* Thành viên */
-.table-view th:nth-child(3) { width: 15%; } /* Vai trò */
-.table-view th:nth-child(4) { width: 38%; } /* Mô tả */
-.table-view th:nth-child(5) { width: 10%; } /* Hành động */
+.table-view th:nth-child(1) {
+  width: 12%;
+} /* ID */
+.table-view th:nth-child(2) {
+  width: 25%;
+} /* Thành viên */
+.table-view th:nth-child(3) {
+  width: 15%;
+} /* Vai trò */
+.table-view th:nth-child(4) {
+  width: 38%;
+} /* Mô tả */
+.table-view th:nth-child(5) {
+  width: 10%;
+} /* Hành động */
 /* ============ RESPONSIVE ============ */
 
 /* Tablet & below: stack form fields */

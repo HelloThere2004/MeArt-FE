@@ -1,85 +1,78 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <!-- Logo -->
-      <RouterLink to="/" class="navbar-brand">
-        <img src="../assets/image/logo.jpg" alt="MeArt Logo" class="nav-logo" />
-        <span class="brand-text">Mê Art</span>
-      </RouterLink>
+  <header class="header-wrapper" :class="{ 'push-content-down': $route.path !== '/' }">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+      <div class="container-fluid position-relative">
+        
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          @click="toggleMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <!-- Mobile Toggle -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-        @click="toggleMenu"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <RouterLink to="/" class="navbar-brand navbar-brand-center d-flex align-items-center gap-2">
+          <img src="../assets/image/logo.jpg" alt="MeArt Logo" class="nav-logo" />
+          <span class="brand-text">Mê Art</span>
+        </RouterLink>
 
-      <!-- Nav Links -->
-      <div class="collapse navbar-collapse" id="navbarNav" :class="{ show: menuOpen }">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <RouterLink to="/" class="nav-link" @click="closeMenu">Trang chủ</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/about" class="nav-link" @click="closeMenu">Về chúng tôi</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/lichhoc" class="nav-link" @click="closeMenu">Lịch học</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/gallery" class="nav-link" @click="closeMenu">Tác phẩm</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/posts" class="nav-link" @click="closeMenu">Bài viết</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/register" class="nav-link" @click="closeMenu">Đăng ký học</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
-              >Học sinh ưu tú</RouterLink
-            >
-          </li>
-        </ul>
+        <div class="collapse navbar-collapse" id="navbarNav" :class="{ show: menuOpen }">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <RouterLink to="/" class="nav-link" @click="closeMenu">Trang chủ</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/lichhoc" class="nav-link" @click="closeMenu">Lịch học</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/gallery" class="nav-link" @click="closeMenu">Tác phẩm</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu">Học viên tiêu biểu</RouterLink>
+            </li>
+          </ul>
 
-        <!-- Auth Buttons -->
-        <div class="d-flex align-items-center gap-2">
-          <template v-if="isAuthenticated">
-            <span class="user-greeting d-none d-md-inline">
-              <i class="bi bi-person-circle me-1"></i>{{ userName }}
-            </span>
-            <span class="user-greeting-mobile d-md-none w-100 text-center mb-2">
-              <i class="bi bi-person-circle me-1"></i>{{ userName }}
-            </span>
-            <RouterLink to="/admin" class="btn btn-outline-dark btn-sm">
-              <i class="bi bi-speedometer2"></i> Admin
-            </RouterLink>
-            <button @click="handleLogout" class="btn btn-dark btn-sm">
-              <i class="bi bi-box-arrow-right"></i> Đăng xuất
-            </button>
-          </template>
-          <template v-else>
-            <RouterLink to="/login" class="btn btn-outline-dark btn-sm">
-              <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
-            </RouterLink>
-          </template>
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <RouterLink to="/posts" class="nav-link" @click="closeMenu">Bài viết</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/about" class="nav-link" @click="closeMenu">Về chúng tôi</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink to="/register" class="nav-link" @click="closeMenu">Đăng ký học thử</RouterLink>
+            </li>
+            <li class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex gap-2 justify-content-center align-items-center">
+              <template v-if="isAuthenticated">
+                <span class="user-greeting">
+                  <i class="bi bi-person-circle me-1"></i>{{ userName }}
+                </span>
+                <RouterLink to="/admin" class="btn btn-outline-light-custom btn-sm" title="Admin">
+                  <i class="bi bi-speedometer2"></i> Admin
+                </RouterLink>
+                <button @click="handleLogout" class="btn btn-light-custom btn-sm" title="Đăng xuất">
+                  <i class="bi bi-box-arrow-right"></i> Đăng xuất
+                </button>
+              </template>
+              <template v-else>
+                <RouterLink to="/login" class="btn btn-outline-light-custom btn-sm fw-bold" @click="closeMenu">
+                  <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+                </RouterLink>
+              </template>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 </template>
 
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import { supabase } from '@/utils/supabase.js'
 
 export default {
@@ -94,7 +87,6 @@ export default {
   },
   async mounted() {
     await this.checkAuth()
-    // Listen for auth state changes
     supabase.auth.onAuthStateChange((event, session) => {
       this.isAuthenticated = !!session
       if (session) {
@@ -105,12 +97,8 @@ export default {
     })
   },
   methods: {
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen
-    },
-    closeMenu() {
-      this.menuOpen = false
-    },
+    toggleMenu() { this.menuOpen = !this.menuOpen },
+    closeMenu() { this.menuOpen = false },
     async checkAuth() {
       const { data } = await supabase.auth.getSession()
       this.isAuthenticated = !!data.session
@@ -119,7 +107,6 @@ export default {
       }
     },
     fetchUserName(user) {
-      // Prefer user_metadata.name, fall back to email
       const meta = user?.user_metadata || {}
       this.userName = meta.name || meta.full_name || user?.email?.split('@')[0] || 'User'
     },
@@ -133,26 +120,25 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-  background: linear-gradient(135deg, #ffea61 0%, #ffd700 100%);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+.header-wrapper {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.custom-navbar {
+  background-color: #1e40af; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   padding: 0.5rem 1rem;
 }
 
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
+/* --- LOGO CSS --- */
 .nav-logo {
   width: 45px;
   height: 45px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #333;
+  /* ĐÃ XÓA VIỀN TRẮNG THEO YÊU CẦU */
   transition: transform 0.3s ease;
+  background-color: transparent;
 }
 
 .nav-logo:hover {
@@ -160,14 +146,48 @@ export default {
 }
 
 .brand-text {
-  color: #333;
+  color: #fff;
   font-size: 1.5rem;
   font-weight: 800;
   letter-spacing: -0.5px;
 }
 
+/* Giao diện PC: Logo lấn viền, ẩn chữ */
+@media (min-width: 992px) {
+  .navbar-brand-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    top: 5px; 
+    z-index: 1050; 
+  }
+
+  .brand-text {
+    display: none !important; 
+  }
+
+  .nav-logo {
+    width: 80px; 
+    height: 80px;
+    /* ĐÃ XÓA VIỀN TRẮNG THEO YÊU CẦU */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    transform: translateY(20px); 
+  }
+
+  .nav-logo:hover {
+    transform: translateY(20px) scale(1.05);
+  }
+
+  /* CLASS CHÌA KHÓA: Đẩy nội dung các trang khác xuống để không bị logo đè */
+  .push-content-down {
+    margin-bottom: 45px;
+  }
+}
+
+/* --- NAV LINKS & BUTTONS CSS --- */
 .nav-link {
-  color: #333 !important;
+  color: #f8fafc !important; 
   font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem 1rem !important;
@@ -176,114 +196,50 @@ export default {
   margin: 0 2px;
 }
 
-.nav-link:hover,
-.nav-link.router-link-active {
-  background-color: #333 !important;
-  color: #ffea61 !important;
+.nav-link:hover, .nav-link.router-link-active {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
 }
 
-.btn-outline-dark {
-  border: 2px solid #333;
-  color: #333;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-outline-dark:hover {
-  background-color: #333;
-  color: #ffea61;
-}
-
-.btn-dark {
-  background-color: #333;
-  border: 2px solid #333;
-  color: #ffea61;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-dark:hover {
-  background-color: #555;
-  border-color: #555;
+.btn-outline-light-custom {
+  border: 2px solid #fff;
   color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-light-custom:hover {
+  background-color: #fff;
+  color: #1e40af;
+}
+
+.btn-light-custom {
+  background-color: #fff;
+  border: 2px solid #fff;
+  color: #1e40af;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-light-custom:hover {
+  background-color: #f1f5f9;
+  border-color: #f1f5f9;
 }
 
 .user-greeting {
-  color: #333;
+  color: #1e40af;
   font-weight: 600;
   font-size: 0.9rem;
   padding: 0.25rem 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
+  background: #fff;
   border-radius: 20px;
-  max-width: 140px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
-.user-greeting-mobile {
-  color: #333;
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  display: block;
-}
-
-/* Mobile & tablet responsive */
 @media (max-width: 991px) {
-  .navbar {
-    padding: 0.4rem 0.8rem;
-  }
-
   .navbar-nav {
     padding-top: 0.5rem;
-    gap: 2px;
-  }
-
-  .nav-link {
-    padding: 0.75rem 1rem !important;
-    font-size: 0.95rem;
-    border-radius: 6px;
-  }
-
-  .d-flex.align-items-center {
-    padding-top: 0.75rem;
-    padding-bottom: 0.5rem;
-    flex-wrap: wrap;
-    gap: 8px !important;
-  }
-
-  .d-flex.align-items-center .user-greeting-mobile {
-    order: -1;
-  }
-
-  .btn-sm {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-logo {
-    width: 34px;
-    height: 34px;
-  }
-
-  .brand-text {
-    font-size: 1.15rem;
-  }
-
-  .navbar {
-    padding: 0.3rem 0.5rem;
-  }
-
-  .nav-link {
-    font-size: 0.9rem;
-    padding: 0.6rem 0.8rem !important;
   }
 }
 </style>

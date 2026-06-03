@@ -69,6 +69,7 @@ export default {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 20px 40px;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
 }
 
 .text {
@@ -78,14 +79,14 @@ export default {
 
 .text h1 {
   font-size: 32px;
-  color: rgb(120, 110, 0);
+  color: #1e40af;
   margin-bottom: 15px;
   font-weight: bold;
 }
 
 .text p {
   font-size: 18px;
-  color: #555;
+  color: #64748b;
 }
 
 /* Mobile responsive */

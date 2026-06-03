@@ -29,7 +29,7 @@
             placeholder="••••••••"
           />
         </div>
-        <button type="submit" class="btn btn-dark w-100" :disabled="isLoading">
+        <button type="submit" class="btn custom-btn-blue text-white w-100" :disabled="isLoading">
           {{ isLoading ? 'Đang xác thực...' : 'Đăng nhập' }}
         </button>
       </form>
@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 .login-bg {
-  background-color: #f5f5f5;
+  background-color: #f0f4ff;
   padding: 15px;
 }
 
@@ -82,6 +82,16 @@ export default {
   max-width: 100%;
   border-radius: 12px;
   border: none;
+}
+
+/* Class nút đăng nhập màu xanh lam */
+.custom-btn-blue {
+  background-color: #1e40af;
+  border: none;
+  transition: all 0.3s ease;
+}
+.custom-btn-blue:hover {
+  background-color: #173285;
 }
 
 @media (max-width: 576px) {

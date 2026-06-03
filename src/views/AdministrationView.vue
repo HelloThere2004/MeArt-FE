@@ -1,17 +1,17 @@
 <template>
   <div class="admin-container d-flex flex-column flex-md-row">
     <!-- Mobile toggle button -->
-    <button class="btn btn-dark d-md-none m-2" @click="sidebarOpen = !sidebarOpen">
+    <button class="btn btn-primary d-md-none m-2" @click="sidebarOpen = !sidebarOpen">
       <i class="bi bi-list"></i> {{ sidebarOpen ? 'Đóng menu' : 'Menu Admin' }}
     </button>
 
     <!-- Sidebar -->
     <div
-      class="sidebar p-3 bg-light"
+      class="sidebar p-3"
       :class="{ 'd-none d-md-block': !sidebarOpen }"
       style="width: 250px; min-height: 100vh"
     >
-      <h3 class="mb-4">Admin Mê Art</h3>
+      <h3 class="mb-4" style="color: #1e40af">Admin Mê Art</h3>
       <div class="list-group">
         <button
           class="list-group-item list-group-item-action"
@@ -122,12 +122,13 @@ export default {
 <style scoped>
 .admin-container {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: #f0f4ff;
 }
 
 .sidebar {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid #d0d9f0;
   flex-shrink: 0;
+  background-color: #ffffff;
 }
 
 .content {
@@ -146,7 +147,7 @@ export default {
     min-height: auto !important;
     padding: 1rem !important;
     border-right: none;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d0d9f0;
   }
 
   .sidebar h3 {

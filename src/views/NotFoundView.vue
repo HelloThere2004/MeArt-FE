@@ -15,7 +15,7 @@ export default {}
 h2 {
   text-align: center;
   margin-top: 20px;
-  color: rgb(241, 232, 124);
+  color: #1e40af;
   font-weight: bold;
 }
 a {
@@ -23,9 +23,13 @@ a {
   text-align: center;
   margin-top: 20px;
   font-size: 20px;
-  color: rgb(241, 232, 124);
+  color: #1e40af;
   text-decoration: none;
   font-weight: bold;
+}
+a:hover {
+  color: #173285;
+  text-decoration: underline;
 }
 
 @media (max-width: 480px) {

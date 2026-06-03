@@ -22,19 +22,17 @@ import 'bootstrap'
 export default {
   name: 'Footer',
   data() {
-    return {
-      // Define any data properties here if needed
-    }
+    return {}
   },
-  methods: {
-    // Define any methods here if needed
-  },
+  methods: {},
 }
 </script>
 
 <style>
+/* Đổi nền Footer sang Xanh lam, chữ Trắng */
 .footer {
-  background-color: #ffea61;
+  background-color: #1e40af;
+  color: #ffffff; 
   padding: 20px 30px;
   line-height: 1.4;
   font-size: 14px;
@@ -57,21 +55,22 @@ export default {
   justify-content: center;
 }
 
+/* Cập nhật màu chữ Slogan sang Trắng */
 .slogan-main {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #ffffff; 
   font-family: 'Pacifico', sans-serif;
 }
 
 .slogan-sub {
   font-size: 22px;
   font-weight: bold;
-  color: #333;
+  color: #ffffff;
   font-family: 'Pacifico', sans-serif;
 }
 
-/* Mobile: stack vertically, center text */
+/* Mobile responsive */
 @media (max-width: 768px) {
   .footer {
     padding: 15px 15px;

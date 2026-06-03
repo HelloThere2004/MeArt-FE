@@ -1,8 +1,8 @@
 <template>
   <div class="admin-gallery">
-    <h3 class="mb-4">Quản lý Tác phẩm (Gallery)</h3>
+    <h3 class="mb-4" style="color: #1e40af">Quản lý Tác phẩm (Gallery)</h3>
 
-    <div class="card mb-4 p-3 bg-light border-0 shadow-sm">
+    <div class="card mb-4 p-3 border-0 shadow-sm" style="background-color: #ffffff">
       <h5>+ Đăng tác phẩm mới</h5>
       <div class="add-form-fields mt-2">
         <input
@@ -45,17 +45,48 @@
           <div class="card-body text-center">
             <h6 class="card-title fw-bold mb-1">{{ art.title }}</h6>
             <p class="card-text text-muted small mb-3">Bởi: {{ art.author }}</p>
-            <button
-              class="btn btn-sm btn-outline-danger w-100"
-              @click="deleteArtwork(art.id, art.image_url)"
-            >
-              Xóa tác phẩm
-            </button>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-primary flex-fill" @click="startEdit(art)">
+                Sửa
+              </button>
+              <button
+                class="btn btn-sm btn-outline-danger flex-fill"
+                @click="deleteArtwork(art.id, art.image_url)"
+              >
+                Xóa
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <div v-if="gallery.length === 0" class="col-12 text-center text-muted mt-4">
         Chưa có tác phẩm nào trong Gallery.
+      </div>
+    </div>
+    <!-- Edit Modal -->
+    <div v-if="editingItem" class="modal-overlay" @click.self="cancelEdit">
+      <div class="modal-card">
+        <h5 class="mb-3">Sửa tác phẩm</h5>
+        <label class="form-label small fw-bold">Tên tác phẩm</label>
+        <input
+          v-model="editingItem.title"
+          type="text"
+          class="form-control mb-2"
+          placeholder="Tên tác phẩm..."
+        />
+        <label class="form-label small fw-bold">Tên tác giả / Học viên</label>
+        <input
+          v-model="editingItem.author"
+          type="text"
+          class="form-control mb-2"
+          placeholder="Tên tác giả..."
+        />
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-outline-secondary flex-fill" @click="cancelEdit">Hủy</button>
+          <button class="btn btn-success flex-fill" @click="updateArtwork" :disabled="isSaving">
+            {{ isSaving ? 'Đang lưu...' : 'Lưu' }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -72,6 +103,8 @@ export default {
       newItem: { title: '', author: '', image_url: '' },
       selectedImage: null,
       isUploading: false,
+      editingItem: null,
+      isSaving: false,
     }
   },
   async mounted() {
@@ -137,6 +170,34 @@ export default {
         console.error(error.message)
       } finally {
         this.isUploading = false
+      }
+    },
+    startEdit(art) {
+      this.editingItem = { ...art }
+    },
+    cancelEdit() {
+      this.editingItem = null
+    },
+    async updateArtwork() {
+      if (!this.editingItem.title || !this.editingItem.author) {
+        alert('Vui lòng điền đủ thông tin!')
+        return
+      }
+      this.isSaving = true
+      try {
+        const { data, error } = await supabase
+          .from('gallery')
+          .update({ title: this.editingItem.title, author: this.editingItem.author })
+          .eq('id', this.editingItem.id)
+          .select()
+        if (error) throw error
+        const idx = this.gallery.findIndex((a) => a.id === this.editingItem.id)
+        if (idx !== -1) this.gallery.splice(idx, 1, data[0])
+        this.editingItem = null
+      } catch (err) {
+        console.error(err.message)
+      } finally {
+        this.isSaving = false
       }
     },
     async deleteArtwork(id, imageUrl) {
@@ -241,5 +302,30 @@ export default {
   .card-body p {
     font-size: 11px;
   }
+
+  .modal-card {
+    width: 92%;
+    padding: 18px;
+  }
+}
+
+/* Edit modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  width: 90%;
+  max-width: 460px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 </style>

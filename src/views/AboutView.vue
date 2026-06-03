@@ -65,22 +65,23 @@ export default {
   padding: 20px;
   margin: 20px auto;
   max-width: 80%;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.08);
+  border: 1px solid #e8ecf4;
 }
 
 .about h1 {
   font-size: 40px;
   margin-bottom: 20px;
   font-weight: bold;
-  color: rgb(120, 110, 0);
+  color: #1e40af;
 }
 
 .about h2 {
   font-size: 20px;
   margin-bottom: 15px;
-  color: rgb(120, 110, 0);
+  color: #1e40af;
   font-weight: bold;
 }
 

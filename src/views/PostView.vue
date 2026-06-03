@@ -8,7 +8,7 @@
 
       <!-- Loading -->
       <div v-if="loading" class="text-center py-5">
-        <div class="spinner-border text-warning" role="status">
+        <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Đang tải...</span>
         </div>
       </div>
@@ -150,12 +150,12 @@ export default {
 .post-view {
   padding: 30px 0;
   min-height: 70vh;
-  background-color: #f8f9fa;
+  background-color: #f0f4ff;
 }
 
 .post-view h1 {
   font-size: 32px;
-  color: rgb(120, 110, 0);
+  color: #1e40af;
   font-weight: bold;
 }
 
@@ -175,6 +175,7 @@ export default {
   white-space: pre-line;
   word-wrap: break-word;
   word-break: break-word;
+  color: #334155;
 }
 
 .post-content :deep(p) {

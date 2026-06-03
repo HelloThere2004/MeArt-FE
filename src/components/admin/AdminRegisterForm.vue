@@ -1,25 +1,25 @@
 <template>
   <div class="admin-registrations">
-    <h3 class="mb-4 section-title">Học viên đăng ký</h3>
+    <h3 class="mb-4 section-title" style="color: #1e40af">Học viên đăng ký</h3>
 
     <div v-if="loading" class="text-center py-5">
-      <div class="spinner-border text-warning" role="status"></div>
+      <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div v-else class="card p-3 p-md-4 bg-light border-0 shadow-sm">
+    <div v-else class="card p-3 p-md-4 border-0 shadow-sm" style="background-color: #ffffff">
       <!-- ========== DESKTOP TABLE (md+) ========== -->
       <div class="table-responsive d-none d-md-block">
         <table class="table table-hover align-middle bg-white mb-0">
-          <thead class="table-dark">
+          <thead style="background-color: #1e40af; color: #ffffff">
             <tr>
-              <th>Ngày ĐK</th>
-              <th>Khách hàng</th>
-              <th>Số ĐT</th>
-              <th>Quan tâm</th>
-              <th>Giờ học</th>
-              <th>Lời nhắn</th>
-              <th>Trạng thái</th>
-              <th class="text-center">Xóa</th>
+              <th style="color: #ffffff">Ngày ĐK</th>
+              <th style="color: #ffffff">Khách hàng</th>
+              <th style="color: #ffffff">Số ĐT</th>
+              <th style="color: #ffffff">Quan tâm</th>
+              <th style="color: #ffffff">Giờ học</th>
+              <th style="color: #ffffff">Lời nhắn</th>
+              <th style="color: #ffffff">Trạng thái</th>
+              <th style="color: #ffffff" class="text-center">Xóa</th>
             </tr>
           </thead>
           <tbody>
@@ -86,10 +86,7 @@
           <div class="d-flex justify-content-between align-items-start mb-2">
             <div>
               <h6 class="mb-0 fw-bold">{{ reg.name }}</h6>
-              <a
-                :href="'tel:' + reg.phone"
-                class="text-decoration-none fw-bold text-primary small"
-              >
+              <a :href="'tel:' + reg.phone" class="text-decoration-none fw-bold text-primary small">
                 <i class="bi bi-telephone-fill me-1"></i>{{ reg.phone }}
               </a>
             </div>
@@ -244,14 +241,30 @@ export default {
 }
 
 /* Chỉnh lại tỷ lệ width cho 8 cột */
-.admin-registrations th:nth-child(1) { width: 12%; } /* Ngày ĐK */
-.admin-registrations th:nth-child(2) { width: 15%; } /* Khách hàng */
-.admin-registrations th:nth-child(3) { width: 12%; } /* Số ĐT */
-.admin-registrations th:nth-child(4) { width: 15%; } /* Quan tâm */
-.admin-registrations th:nth-child(5) { width: 12%; } /* Giờ học */
-.admin-registrations th:nth-child(6) { width: 15%; } /* Lời nhắn */
-.admin-registrations th:nth-child(7) { width: 12%; } /* Trạng thái */
-.admin-registrations th:nth-child(8) { width: 7%; }  /* Xóa */
+.admin-registrations th:nth-child(1) {
+  width: 12%;
+} /* Ngày ĐK */
+.admin-registrations th:nth-child(2) {
+  width: 15%;
+} /* Khách hàng */
+.admin-registrations th:nth-child(3) {
+  width: 12%;
+} /* Số ĐT */
+.admin-registrations th:nth-child(4) {
+  width: 15%;
+} /* Quan tâm */
+.admin-registrations th:nth-child(5) {
+  width: 12%;
+} /* Giờ học */
+.admin-registrations th:nth-child(6) {
+  width: 15%;
+} /* Lời nhắn */
+.admin-registrations th:nth-child(7) {
+  width: 12%;
+} /* Trạng thái */
+.admin-registrations th:nth-child(8) {
+  width: 7%;
+} /* Xóa */
 
 /* ========== MOBILE CARDS ========== */
 .registration-card {

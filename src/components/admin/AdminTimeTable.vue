@@ -1,22 +1,28 @@
 <template>
   <div class="admin-timetable">
-    <h3 class="mb-4">Quản lý Lịch học</h3>
+    <h3 class="mb-4" style="color: #1e40af">Quản lý Lịch học</h3>
 
     <div v-if="loading" class="text-center py-5">
-      <div class="spinner-border text-warning" role="status"></div>
+      <div class="spinner-border text-primary" role="status"></div>
     </div>
 
-    <div v-else class="card p-4 bg-light border-0 shadow-sm">
+    <div v-else class="card p-4 border-0 shadow-sm" style="background-color: #ffffff">
       <p class="text-muted mb-3">
         Tick vào các ô bên dưới để mở lớp, bỏ tick để đóng lớp. Sau đó bấm "Lưu thay đổi".
       </p>
-      
+
       <div class="table-responsive">
         <table class="table table-bordered text-center align-middle bg-white">
-          <thead class="table-warning">
+          <thead style="background-color: #1e40af; color: #ffffff">
             <tr>
-              <th>Ca học</th>
-              <th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th><th>T7</th><th>CN</th>
+              <th style="color: #ffffff">Ca học</th>
+              <th style="color: #ffffff">T2</th>
+              <th style="color: #ffffff">T3</th>
+              <th style="color: #ffffff">T4</th>
+              <th style="color: #ffffff">T5</th>
+              <th style="color: #ffffff">T6</th>
+              <th style="color: #ffffff">T7</th>
+              <th style="color: #ffffff">CN</th>
             </tr>
           </thead>
           <tbody>
@@ -34,9 +40,9 @@
         </table>
       </div>
 
-      <button 
-        class="btn btn-primary mt-3 align-self-end" 
-        @click="saveTimetable" 
+      <button
+        class="btn btn-primary mt-3 align-self-end"
+        @click="saveTimetable"
         :disabled="isSaving"
       >
         <span v-if="isSaving" class="spinner-border spinner-border-sm me-2"></span>
@@ -76,14 +82,12 @@ export default {
       }
       this.loading = false
     },
-    
+
     async saveTimetable() {
       this.isSaving = true
       try {
         // Dùng upsert để cập nhật toàn bộ mảng dữ liệu cùng lúc dựa trên ID
-        const { error } = await supabase
-          .from('timetable')
-          .upsert(this.schedules)
+        const { error } = await supabase.from('timetable').upsert(this.schedules)
 
         if (error) throw error
         alert('Cập nhật lịch học thành công!')
