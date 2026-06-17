@@ -27,11 +27,7 @@
             <li class="nav-item">
               <RouterLink to="/gallery" class="nav-link" @click="closeMenu">Tác phẩm</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
-                >Học viên tiêu biểu</RouterLink
-              >
-            </li>
+            
           </ul>
 
           <ul class="navbar-nav ms-auto align-items-lg-center">
@@ -42,10 +38,15 @@
               <RouterLink to="/about" class="nav-link" @click="closeMenu">Về chúng tôi</RouterLink>
             </li>
             <li class="nav-item">
+              <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
+                >Học viên tiêu biểu</RouterLink
+              >
+            </li>
+            <!-- <li class="nav-item">
               <RouterLink to="/register" class="nav-link" @click="closeMenu"
                 >Đăng ký học thử</RouterLink
               >
-            </li>
+            </li> -->
 
             <li
               class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex flex-column flex-lg-row gap-2 justify-content-center align-items-center auth-section"

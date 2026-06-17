@@ -2,9 +2,10 @@
   <div class="admin-members">
     <h3 class="mb-4" style="color: #1e40af">Danh sách Giáo viên / Nhân viên</h3>
 
-    <!-- Add member form -->
+    <!-- Add / Edit member form -->
     <div class="card mb-4 p-3 border-0 shadow-sm add-form" style="background-color: #ffffff">
-      <h5>+ Thêm thành viên mới</h5>
+      <h5 v-if="!isEditing">+ Thêm thành viên mới</h5>
+      <h5 v-else>✏️ Chỉnh sửa thành viên</h5>
       <div class="form-fields mt-2">
         <input
           v-model="newMember.name"
@@ -33,11 +34,28 @@
           ref="fileInput"
           class="form-control"
           accept="image/*"
-          required
+          :required="!isEditing"
         />
-        <button @click="addMember" class="btn btn-primary btn-add" :disabled="isUploading">
+        <button
+          v-if="!isEditing"
+          @click="addMember"
+          class="btn btn-primary btn-add"
+          :disabled="isUploading"
+        >
           {{ isUploading ? 'Đang up...' : 'Thêm' }}
         </button>
+        <template v-else>
+          <button @click="updateMember" class="btn btn-success btn-add" :disabled="isUploading">
+            {{ isUploading ? 'Đang lưu...' : 'Cập nhật' }}
+          </button>
+          <button
+            @click="cancelEdit"
+            class="btn btn-outline-secondary btn-add"
+            :disabled="isUploading"
+          >
+            Hủy
+          </button>
+        </template>
       </div>
     </div>
 
@@ -75,6 +93,9 @@
               </td>
               <td>{{ member.description }}</td>
               <td class="text-center">
+                <button class="btn btn-sm btn-outline-primary me-1" @click="startEdit(member)">
+                  Sửa
+                </button>
                 <button
                   class="btn btn-sm btn-outline-danger"
                   @click="deleteMember(member.id, member.image_url)"
@@ -115,12 +136,17 @@
               <p class="text-muted small mb-2">{{ member.description }}</p>
             </div>
           </div>
-          <button
-            class="btn btn-sm btn-outline-danger w-100 mt-2"
-            @click="deleteMember(member.id, member.image_url)"
-          >
-            Xóa thành viên
-          </button>
+          <div class="d-flex gap-2 mt-2">
+            <button class="btn btn-sm btn-outline-primary flex-fill" @click="startEdit(member)">
+              Sửa
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger flex-fill"
+              @click="deleteMember(member.id, member.image_url)"
+            >
+              Xóa
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -138,6 +164,8 @@ export default {
       newMember: { name: '', role: '', description: '', image_url: '' },
       selectedImage: null,
       isUploading: false,
+      isEditing: false,
+      editingMember: null,
     }
   },
   async mounted() {
@@ -216,6 +244,96 @@ export default {
       } catch (error) {
         console.error('Lỗi:', error.message)
         alert('Thao tác thất bại!')
+      } finally {
+        this.isUploading = false
+      }
+    },
+    startEdit(member) {
+      this.isEditing = true
+      this.editingMember = member
+      this.newMember = {
+        name: member.name,
+        role: member.role,
+        description: member.description,
+        image_url: member.image_url || '',
+      }
+      this.selectedImage = null
+      if (this.$refs.fileInput) this.$refs.fileInput.value = ''
+      // Scroll lên form
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    cancelEdit() {
+      this.isEditing = false
+      this.editingMember = null
+      this.newMember = { name: '', role: '', description: '', image_url: '' }
+      this.selectedImage = null
+      if (this.$refs.fileInput) this.$refs.fileInput.value = ''
+    },
+    async updateMember() {
+      if (!this.newMember.name || !this.newMember.role || !this.newMember.description) {
+        alert('Vui lòng điền đủ thông tin!')
+        return
+      }
+
+      this.isUploading = true
+      let imageUrl = this.newMember.image_url || ''
+
+      try {
+        // Nếu có chọn ảnh mới thì upload
+        if (this.selectedImage) {
+          // Xóa ảnh cũ nếu có
+          if (this.newMember.image_url) {
+            const oldFileName = this.newMember.image_url.split('/').pop()
+            await supabase.storage.from('members').remove([oldFileName])
+          }
+
+          const fileExt = this.selectedImage.name.split('.').pop()
+          const fileName = `${Date.now()}.${fileExt}`
+
+          const { error: uploadError } = await supabase.storage
+            .from('members')
+            .upload(fileName, this.selectedImage)
+          if (uploadError) {
+            console.error('Upload error:', uploadError.message)
+            alert('Lỗi upload ảnh: ' + uploadError.message)
+            this.isUploading = false
+            return
+          }
+
+          const { data: publicUrlData } = supabase.storage.from('members').getPublicUrl(fileName)
+          imageUrl = publicUrlData.publicUrl
+        }
+
+        const updateData = {
+          name: this.newMember.name,
+          role: this.newMember.role,
+          description: this.newMember.description,
+          image_url: imageUrl || null,
+        }
+
+        const { data: dbData, error: dbError } = await supabase
+          .from('members')
+          .update(updateData)
+          .eq('id', this.editingMember.id)
+          .select()
+
+        if (dbError) {
+          console.error('DB error:', dbError.message)
+          alert('Lỗi cập nhật: ' + dbError.message)
+          this.isUploading = false
+          return
+        }
+
+        // Cập nhật lại item trong danh sách
+        const idx = this.members.findIndex((m) => m.id === this.editingMember.id)
+        if (idx !== -1 && dbData[0]) {
+          this.members.splice(idx, 1, dbData[0])
+        }
+
+        this.cancelEdit()
+      } catch (error) {
+        console.error('Lỗi:', error.message)
+        alert('Cập nhật thất bại!')
       } finally {
         this.isUploading = false
       }

@@ -1,14 +1,18 @@
 <template>
   <div class="about">
-    <h1>Về Mê Art</h1>
+    <h1>MÊ ART </h1>
+    <h1>NƠI ƯƠM MẦM ĐAM MÊ VÀ CHINH PHỤC ƯỚC MƠ GIẢNG ĐƯỜNG</h1>
     <p>
-      Mê Art được thành lập với mong muốn giúp các bạn học sinh có ước mơ theo ngành vẽ có thể
-      đến học tập và rèn luyện kỹ năng vẽ của mình và có thể vào được trường đại học mình mong muốn.
-      Ngoài ra, những bạn chưa ôn thi đại học vào các ngành mỹ thuật cũng có thể đến để học tập và
-      rèn luyện kỹ năng vẽ của mình vì đam mê cũng như là giao lưu, kết bạn với những người bạn có
-      cùng sở thích với mình. Mê Art được thành lập vào năm 2022, đến nay đã {{ year }} năm rồi đó.
-      Khi đó lớp chỉ có 3 bạn học viên thôi nhưng đến nay đã có gần 30 bạn học viên rồi. Cảm ơn các
-      bạn và quý phụ huynh đã tin tưởng và đồng hành cùng lớp Mê Art trong suốt thời gian qua.
+      Thành lập từ tháng 7/2022, Mê Art ra đời với sứ mệnh đồng hành cùng các bạn học sinh trên con
+      đường chinh phục giấc mơ nghệ thuật và bước vào giảng đường Đại học mong muốn. Đây không chỉ
+      là nơi luyện thi, mà còn là không gian kết nối những tâm hồn đồng điệu để cùng nghiên cứu,
+      sáng tạo và giao lưu. Trong suốt thời gian qua, Mê Art tự hào đã đào tạo nhiều thế hệ học viên
+      ứng tuyển thành công vào các ngành Mỹ thuật Công nghiệp và Kiến trúc tại các trường Đại học
+      lớn, với tỷ lệ trúng tuyển đạt trên 80%. Bên cạnh đó, lớp còn là nơi rèn luyện năng khiếu,
+      trau dồi kiến thức và kỹ năng chuyên sâu cho: Các bạn học sinh định hướng chuyên nghiệp. Học
+      sinh có nhu cầu chuẩn bị hồ sơ du học. Sinh viên thuộc các trường Đại học trong nước và quốc
+      tế cần nâng cao tay nghề. Mê Art chân thành cảm ơn quý phụ huynh và các bạn học viên đã luôn
+      tin tưởng, đồng hành cùng chúng tôi trong suốt hành trình qua!
     </p>
     <h2>Sau đây là những thành viên của lớp vẽ Mê Art</h2>
     <div v-for="member in members" :key="member.name">
@@ -31,11 +35,6 @@ export default {
     return {
       members: [],
     }
-  },
-  computed: {
-    year() {
-      return parseInt(new Date().getFullYear()) - 2022
-    },
   },
   async mounted() {
     await this.fetchMembers()

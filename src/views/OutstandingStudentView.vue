@@ -2,7 +2,7 @@
   <div class="outstanding-page py-5">
     <div class="container">
       <div class="text-center mb-5">
-        <h1 class="fw-bold display-5" style="color: #1e40af">Niềm Tự Hào Mê Art</h1>
+        <h1 class="fw-bold display-5" style="color: #1e40af">Hoạt động của Mê Art</h1>
         <p class="text-muted lead">
           Cùng nhìn lại những gương mặt học viên xuất sắc và những nỗ lực không ngừng nghỉ tại lớp
           vẽ Mê Art.
