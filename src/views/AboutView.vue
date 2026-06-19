@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>MÊ ART </h1>
-    <h1>NƠI ƯƠM MẦM ĐAM MÊ VÀ CHINH PHỤC ƯỚC MƠ GIẢNG ĐƯỜNG</h1>
+    <h2>NƠI ƯƠM MẦM ĐAM MÊ VÀ CHINH PHỤC ƯỚC MƠ GIẢNG ĐƯỜNG</h2>
     <p>
       Thành lập từ tháng 7/2022, Mê Art ra đời với sứ mệnh đồng hành cùng các bạn học sinh trên con
       đường chinh phục giấc mơ nghệ thuật và bước vào giảng đường Đại học mong muốn. Đây không chỉ

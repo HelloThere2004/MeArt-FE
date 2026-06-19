@@ -61,7 +61,7 @@ export default {
   font-size: 24px;
   font-weight: bold;
   color: #ffffff;
-  font-family: Arial, sans-serif;
+  font-family: 'Pacifico', sans-serif;
   font-style: italic;
 }
 
