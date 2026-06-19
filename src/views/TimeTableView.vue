@@ -3,8 +3,7 @@
     <div class="info">
       <h1>Đây là lịch học của lớp vẽ Mê Art</h1>
       <p>
-        Lớp Mê Art của chúng tôi hoạt động xuyên suốt tuần. Dựa vào số lượng học sinh, chúng tôi có
-        thể mở thêm hoặc bớt lại các giờ học.
+        Học viên tự chọn các buổi học phù hợp.
       </p>
       <p>Hiện tại, giờ học của lớp như sau:</p>
     </div>
@@ -32,25 +31,25 @@
             <td class="learn-time">{{ row.time_slot }}</td>
 
             <td :class="{ 'table-success': row.t2 }">
-              <img v-if="row.t2" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t2" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.t3 }">
-              <img v-if="row.t3" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t3" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.t4 }">
-              <img v-if="row.t4" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t4" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.t5 }">
-              <img v-if="row.t5" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t5" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.t6 }">
-              <img v-if="row.t6" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t6" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.t7 }">
-              <img v-if="row.t7" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.t7" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
             <td :class="{ 'table-success': row.cn }">
-              <img v-if="row.cn" src="../assets/image/timetable/drawIcon.png" alt="Lớp hoạt động" />
+              <img v-if="row.cn" src="../assets/image/timetable/drawIcon2.jpg" alt="Lớp hoạt động" />
             </td>
           </tr>
         </tbody>

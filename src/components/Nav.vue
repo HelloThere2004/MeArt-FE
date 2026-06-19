@@ -27,11 +27,7 @@
             <li class="nav-item">
               <RouterLink to="/gallery" class="nav-link" @click="closeMenu">Tác phẩm</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
-                >Học viên tiêu biểu</RouterLink
-              >
-            </li>
+            
           </ul>
 
           <ul class="navbar-nav ms-auto align-items-lg-center">
@@ -42,10 +38,15 @@
               <RouterLink to="/about" class="nav-link" @click="closeMenu">Về chúng tôi</RouterLink>
             </li>
             <li class="nav-item">
+              <RouterLink to="/outstanding-students" class="nav-link" @click="closeMenu"
+                >Học viên tiêu biểu</RouterLink
+              >
+            </li>
+            <!-- <li class="nav-item">
               <RouterLink to="/register" class="nav-link" @click="closeMenu"
                 >Đăng ký học thử</RouterLink
               >
-            </li>
+            </li> -->
 
             <li
               class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex flex-column flex-lg-row gap-2 justify-content-center align-items-center auth-section"
@@ -166,24 +167,59 @@ export default {
 
 /* GIAO DIỆN PC */
 @media (min-width: 992px) {
+  .navbar-collapse {
+    display: flex !important;
+    width: 100%;
+  }
+
+  /* 1. Ép menu bên trái chiếm đúng 50% chiều ngang */
+  .navbar-nav.me-auto {
+    margin-right: 0 !important;   /* Xóa bỏ margin mặc định của Bootstrap */
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;    /* Đẩy các mục bên trái tiến về phía logo */
+    padding-right: 80px;          /* VÙNG CẤM ĐỊA: Né nửa cái logo bên trái (110px/2 = 55px + 25px khoảng cách) */
+  }
+
+  /* 2. Ép menu bên phải chiếm đúng 50% chiều ngang */
+  .navbar-nav.ms-auto {
+    margin-left: 0 !important;    /* Xóa bỏ margin mặc định của Bootstrap */
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;  /* Đẩy các mục bên phải xuất phát từ logo đi ra */
+    padding-left: 80px;           /* VÙNG CẤM ĐỊA: Né nửa cái logo bên phải */
+    align-items: center;
+  }
+
+  /* 3. Vô hiệu hóa class w-100 của phần Auth trên PC để tránh phá vỡ hàng ngang */
+  .auth-section .w-100 {
+    width: auto !important;
+  }
+
+  .auth-section {
+    flex-direction: row !important;
+    gap: 10px !important;
+    flex-wrap: nowrap;            /* Ép tên và nút luôn nằm trên một hàng */
+  }
+
+  .user-greeting {
+    white-space: nowrap;          /* Khóa không cho chữ tên user bị tụt dòng bậy bạ */
+    background: #ffffff;
+    color: #1e40af;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* --- GIỮ NGUYÊN PHẦN LOGO CŨ CỦA ÔNG --- */
   .navbar-brand-center {
     position: absolute;
     left: 50%;
-
-    /* Đỉnh logo neo tại mép dưới của NavBar */
     top: 100%;
-
-    /* 3. Kéo ngược logo lên cao hơn nữa. 
-       -62% (thay vì -55% như cũ) sẽ nhấc cái chân M lên đúng vạch line.
-       Ông có thể chỉnh nhẹ thành -61% hoặc -63% nếu thấy nó lệch đi 1 sợi tóc. */
     transform: translate(-50%, -62%);
-
     margin: 0;
     z-index: 1050;
   }
 
   .nav-logo {
-    /* 2. Thu nhỏ logo PC lại một xíu (từ 120px -> 110px) cho cân bằng tổng thể */
     width: 110px;
     height: 110px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
@@ -193,7 +229,6 @@ export default {
     transform: scale(1.05);
   }
 
-  /* Đẩy nội dung trang con xuống sâu hơn */
   .push-content-down {
     margin-bottom: 70px;
   }
@@ -202,15 +237,6 @@ export default {
     margin: 0 6px;
     border-radius: 8px;
   }
-}
-
-/* --- NAV LINKS & BUTTONS CSS --- */
-.nav-link {
-  color: #f8fafc !important;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.6rem 1.2rem !important;
-  transition: all 0.2s ease;
 }
 
 /* Hover & Active (PC) */

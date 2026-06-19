@@ -7,11 +7,11 @@
         <div class="hero-content-box">
           <h1>Chào mừng đến với Mê Art</h1>
           <p>
-            Nơi ươm mầm đam mê hội họa và rèn luyện kỹ năng chinh phục trường đại học mơ ước của
-            bạn.
+            Luyện năng khiếu 
           </p>
+          <p>Mỹ Thuật & Kiến Trúc </p>
           <!-- Đổi text-dark thành text-white cho nút xanh lam -->
-          <RouterLink to="/register" class="btn btn-cta text-white"> Đăng ký học ngay </RouterLink>
+          <RouterLink to="/register" class="btn btn-cta text-white"> Đăng ký </RouterLink>
         </div>
       </div>
     </section>
@@ -21,7 +21,7 @@
       <div class="container d-flex justify-content-center gap-4 flex-wrap text-center">
         <span><i class="bi bi-palette"></i> Môi trường sáng tạo</span>
         <span><i class="bi bi-calendar-check"></i> Linh hoạt lịch học</span>
-        <span><i class="bi bi-heart"></i> Giao lưu kết bạn</span>
+        <span><i class="bi bi-heart"></i> <em>Thương Yêu và Trách Nhiệm</em></span>
       </div>
     </section>
   </main>
